@@ -1,0 +1,266 @@
+{
+  "kind": "design-synthesis-and-codex-category-handoff",
+  "prepared_at_utc": "2026-11-13T12:31:16.787233+00:00",
+  "input_archive": "IN_TIME_CODEX_Implementation_Handoff.zip",
+  "input_archive_sha256": "eaea31e1ab022f96984e0511346c7bbcaa3ac74fcc9f5bdcedfc70c96fd04920",
+  "input_files_preserved_byte_for_byte": 54,
+  "runtime_version_delivered": "0.1.0",
+  "proposed_target": "v0.3 Living District category proof, preserving the v0.2 quality lane",
+  "runtime_source_changed": false,
+  "new_features_implemented": false,
+  "fresh_baseline_checks": [
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "tests": 34,
+      "passed": 34,
+      "failed": 0,
+      "log": "category-evidence/baseline-tests.txt"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "bytes": 83317,
+      "runtime_modules": 7,
+      "external_dependencies": 0,
+      "log": "category-evidence/baseline-build.txt"
+    },
+    {
+      "check": "all original archive files preserved byte-for-byte",
+      "passed": true,
+      "count": 54
+    },
+    {
+      "check": "original archive CRC",
+      "passed": true
+    },
+    {
+      "check": "classic rebuilt standalone equals original bytes",
+      "passed": true
+    }
+  ],
+  "browser_tests_rerun": false,
+  "category_feature_tests_run": false,
+  "human_playtest": "NOT_RUN",
+  "codex_goal_started": false,
+  "remote_actions": [],
+  "category_novelty_or_market_validation": "NOT_ESTABLISHED",
+  "preserved_files": [
+    {
+      "path": ".gitignore",
+      "sha256": "6c7d15d2ab1a0b51ebcae7e88b9ad01f0713d0833bc2dbe8f3bcc7a81b66b344"
+    },
+    {
+      "path": "GOOGLE_HANDOFF.md",
+      "sha256": "e29dc5fa891721d38d9564cd84d3e42e3d21337231a80e1b22db224acb4ee8b2"
+    },
+    {
+      "path": "GOOGLE_SOURCE_HANDOFF.txt",
+      "sha256": "27cfd50f3f743d5d5766ea8cc16afc47e473532685149830c8ffac3359753604"
+    },
+    {
+      "path": "PACKAGE_MANIFEST.json",
+      "sha256": "d0c30dbdfae4fa029d4b1d15b26ac73860c98a48489d2b0adc6b5a47d8894b37"
+    },
+    {
+      "path": "PLAYGROUND_PROMPT.txt",
+      "sha256": "fb2f2b10008b2a3c4b21de7f58560b5bd5a8c4bce5244a49910cd199027602f6"
+    },
+    {
+      "path": "PROVENANCE.md",
+      "sha256": "e065579f3c85e437ef0e23a8866043a04cd3b1dfca8659097f65b8ec48d05ad8"
+    },
+    {
+      "path": "README.md",
+      "sha256": "f1f89377f7990a52aac6de3fdfd98382163b56da12c003f3a4863bfaea43f2d4"
+    },
+    {
+      "path": "VERIFICATION.md",
+      "sha256": "4ebcd2cb526f254582333dea66679eda24c115a8d2be5e006ef2f971fbf3b593"
+    },
+    {
+      "path": "dist/IN_TIME_PLAY.html",
+      "sha256": "9b257411f6b5f0212634f65c1c1297d7dbccd0bf26498a2f3a5a42485eac1779"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "9b257411f6b5f0212634f65c1c1297d7dbccd0bf26498a2f3a5a42485eac1779"
+    },
+    {
+      "path": "docs/DESIGN.md",
+      "sha256": "bf165a2b3eeb2f4cbc6ec7a0974ce890107615737e8d9a9236a29222e2009e70"
+    },
+    {
+      "path": "docs/IMPLEMENTATION_PLAN.md",
+      "sha256": "fd98546646ffe53e58c6a65704ffd529fc0ab483316c8adbdd7594afeef14ddb"
+    },
+    {
+      "path": "evidence/browser-desktop.json",
+      "sha256": "30ac4be716c0573d4c45d1705cf39366054603f1f8e94d4e82b53f7a32327e59"
+    },
+    {
+      "path": "evidence/browser-desktop.log",
+      "sha256": "0de20399c9c1a37fb7ba555443344b67bba3d82f914389de3d4b812f130c32e0"
+    },
+    {
+      "path": "evidence/browser-mobile.json",
+      "sha256": "fc37191ee9ce95542b59618223e13b34f029a926dc1540cf1ab53d54e468a951"
+    },
+    {
+      "path": "evidence/browser-mobile.log",
+      "sha256": "5dce1fa4e0cf1040c6b711ca7505a3d30cd8cc817ceca3420141430d1fa859ea"
+    },
+    {
+      "path": "evidence/core-tests.txt",
+      "sha256": "9cd0bb9061359d24a7a4e67975b3d78d4d367263973b1818e33607395b5f849d"
+    },
+    {
+      "path": "evidence/ending-desktop.png",
+      "sha256": "536f9f85750529dda46ff1348ca5763c373d6616fcfbd6b80da5735bb464d674"
+    },
+    {
+      "path": "evidence/game-desktop.png",
+      "sha256": "3056c1aef98375688ab5a981208554ec1939a6c3d933680180d09a1ecb4b1d31"
+    },
+    {
+      "path": "evidence/game-mobile.png",
+      "sha256": "4dcaa8802eb654f49f1f90cfcfc4d7413ccc77d91802a3ff5d006ac155cb01a1"
+    },
+    {
+      "path": "evidence/map-desktop.png",
+      "sha256": "45f81ca77909bf9fafba8c0b7422e647022d0f80a165f5a4633897099a548cd5"
+    },
+    {
+      "path": "evidence/red-math.txt",
+      "sha256": "bc2ec95c5a83dfa693749c4a69979cfb710f9657f68c3884882f321d1b8e3e18"
+    },
+    {
+      "path": "evidence/red-memory-validation.txt",
+      "sha256": "26e1a173822ca913a6e7287f1e94d9717085d880d52f4022441233b81c605f8a"
+    },
+    {
+      "path": "evidence/red-rng.txt",
+      "sha256": "bceb780305e1838cd0af767e371822fe4623c61e541f9f22c81d633a75ee4b00"
+    },
+    {
+      "path": "evidence/red-simulation.txt",
+      "sha256": "407ab7425a419205153008701a22187d47816f7c3e98dbcb61aa830cfaab9a60"
+    },
+    {
+      "path": "evidence/two-echo-puzzle.png",
+      "sha256": "78fc2edfbd9c8817a5971a271845af21c7c3ac57423ce662db77d0223e2f81ed"
+    },
+    {
+      "path": "package.json",
+      "sha256": "1d7497b79bd66cc7afc2235ef0216baf483f34d89a4bf61e9857f90c7e1baef5"
+    },
+    {
+      "path": "reference/chiraq-mission-schema.ts",
+      "sha256": "f146fe4e369a611751a44bb2a5a046386d50389f1b0d621ba20f2c5af043c526"
+    },
+    {
+      "path": "reference/trinity-seeded-rng.ts",
+      "sha256": "40b23c95d6e7d0ce126333554ce6ae3fbb5633c08b8b6db7085502e4480751b9"
+    },
+    {
+      "path": "scripts/build.mjs",
+      "sha256": "4c93d0593927bf669d861fb958ba5b856b0a74369fb8510e3437144004c1ec68"
+    },
+    {
+      "path": "scripts/serve.mjs",
+      "sha256": "7309aa0392c328a1cab5fd869a49e4300410483c080c553043dd66c8c0dfe67d"
+    },
+    {
+      "path": "src/core/rng.js",
+      "sha256": "f78596e4738f7db45d78c3a5c67c8b09796f7df7b5dc98bee1fd3e60ededd7f9"
+    },
+    {
+      "path": "src/core/simulation.js",
+      "sha256": "e5e78962935d50aca97455477615d84a4a223714f13383bd3503499802b70f47"
+    },
+    {
+      "path": "src/core/world.js",
+      "sha256": "b30c135c58de445fb6122158ca9d336e4bf169278d2c3f4cdd35f9e70fddefff"
+    },
+    {
+      "path": "src/index.html",
+      "sha256": "e3a9b184120b59cd7d0bd122316dbdf0408ba96f78d6a6bbaa726ae11e9b3de3"
+    },
+    {
+      "path": "src/main.js",
+      "sha256": "4367c6015234921506665d5aca59ded3476fa60053f86aa650721f5899b54e21"
+    },
+    {
+      "path": "src/style.css",
+      "sha256": "90b8ab84a65d9d1bc9ea45bf0394bfbeda6591e34a70e6ef0e99238b56692f2e"
+    },
+    {
+      "path": "src/view/audio.js",
+      "sha256": "615bc4afda9ece6cfd581fd7c9348e6f6f5e79ae4d89337344002b104675b5ee"
+    },
+    {
+      "path": "src/view/math.js",
+      "sha256": "6444c9d19bfdf01cb756daab0d8569476a85986ab9edecdea04e80996e160e6b"
+    },
+    {
+      "path": "src/view/renderer.js",
+      "sha256": "16b88ce5dbbcd925e0474fdb2fa34a0938f5a5519dc077405695c1e18a28bdc4"
+    },
+    {
+      "path": "tests/browser_acceptance.py",
+      "sha256": "0665bbf8e0706e7cefac4ab567b9978492caf4c5c4eb13acec56818e1a2f43e6"
+    },
+    {
+      "path": "tests/browser_route.js",
+      "sha256": "83ecc0a13a1f22da648f72d505bae08d73ba1bcfe53ff0fb65be9216bfc242db"
+    },
+    {
+      "path": "tests/browser_smoke.py",
+      "sha256": "04eee4ad64fe4ef9f91c86cd33c67536f1c8f50b30898d108a2d7d94e1202357"
+    },
+    {
+      "path": "tests/math.test.js",
+      "sha256": "5ba7d66d2ddfddcdbd10af79b99df49c968a87be5e08829a5290d4717c8938f5"
+    },
+    {
+      "path": "tests/playthrough.test.js",
+      "sha256": "572ec0f147bb92a116918afc9315ec40d65e3e8d3381ab4364da8edce50e03ae"
+    },
+    {
+      "path": "tests/rng.test.js",
+      "sha256": "5bd2c118f2922d8c8badb5fa78be1a03754d5da0553ebc9dc4f14e097008614e"
+    },
+    {
+      "path": "tests/simulation.test.js",
+      "sha256": "0195e5a8bf844b6cc13f7df788ceda7c6e0fdfb14586fc58a337930d5360fd00"
+    },
+    {
+      "path": "CODEX_GOAL.md",
+      "sha256": "b71e0289fabd3768d7731298d6cef73f4e6dd8db459945c220d8ac44be39724f"
+    },
+    {
+      "path": "CODEX_START.txt",
+      "sha256": "6f37471d3d99336eaebc3faa11a37627a49fb2392a9990e9353af7348216b1bb"
+    },
+    {
+      "path": "handoff-evidence/core-tests.txt",
+      "sha256": "2c91305da347086d2d0bffac38163fef1f18c8e28987aef0dda6558f7d0720e2"
+    },
+    {
+      "path": "handoff-evidence/build.txt",
+      "sha256": "1041621ca1564ebd1ef89b92b1c26d82cf998cb38bf6846a88ae1e3e51a01cfe"
+    },
+    {
+      "path": "handoff-evidence/BASELINE_RECEIPT.json",
+      "sha256": "26fa98198f16a4999f2ee6041f8fa1d300d9feb8c7e7bc6b24224d5471ee61c6"
+    },
+    {
+      "path": "README_CODEX.md",
+      "sha256": "bd4796943cc8648f6cf2739e5e2230010fd5d3509563186a505bb9b768a755a1"
+    },
+    {
+      "path": "CODEX_HANDOFF_MANIFEST.json",
+      "sha256": "160733fcb46aa3f8a90effd1afe8ddd0e5c62c8828cbc7c15150926942893673"
+    }
+  ]
+}

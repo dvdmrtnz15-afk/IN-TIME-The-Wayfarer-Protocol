@@ -1,0 +1,13 @@
+Create IN-TIME: The Wayfarer Protocol, an actually playable single-player 3D temporal puzzle. Not a landing page, slideshow, trailer or fake gameplay screen.
+
+Art direction: a rain-soaked city district in 2100, restrained low-poly sacred-futurist architecture, weathered stone, dark teal, copper and warm lanterns. Isometric/orthographic camera with clear sight of the player. Minimal cinematic HUD. Use distinct character silhouettes and real geometric spaces. No copyrighted franchise assets.
+
+FIRST GENERATION: one fully playable Relay puzzle. The player starts at a checkpoint, walks to a pressure plate, presses Q to rewind, and leaves an echo. The echo replays the exact recorded movement and then stands at its final position. While it holds the plate, the player walks through a physically opened gate and interacts with the Relay terminal. Anchoring the Relay completes the puzzle. The echo must actually occupy the plate: no timer-triggered gate, teleport, decorative clone or automatic completion.
+
+Controls: WASD/arrows move, Shift runs, Q records/rewinds, E interacts, Space temporarily stills roaming hazards. Click-to-walk is optional, but mobile needs a working joystick and action buttons. Include a short field guide, pause, retry and a visible objective. A six-minute simulation clock does not rewind; dialogue and menus pause it. Failure must offer a real checkpoint retry.
+
+Architecture: fixed-step state separate from rendering. Seeded random effects only; never let frame rate or cosmetic randomness change the puzzle. No account, API key, backend, live LLM dependency or fake multiplayer. Save the actual player, echo routes, progress and remaining time if storage is available; provide an export fallback.
+
+After the Relay works end-to-end, extend with the Archive: two plates, two recorded echoes, maximum two echoes at once, oldest replaced by a third. Then add the north tower with two final decisions: restore the city or carry its signal away. Three optional memories change the restored-city epilogue. All completed landmarks survive rewinds. Echoes restart together at a rewind and hold their recorded endpoints.
+
+Acceptance before expanding: move using actual controls, record and replay a route, prove an unoccupied plate keeps the gate closed, pass the gate while an echo holds it, interact to win, retry after failure, and operate the same core loop on touch. Preserve a working exported version before each change. Report what was actually tested.

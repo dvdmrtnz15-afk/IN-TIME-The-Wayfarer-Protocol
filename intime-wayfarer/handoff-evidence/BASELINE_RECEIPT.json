@@ -1,0 +1,40 @@
+{
+  "kind": "handoff-preparation-baseline-recheck",
+  "timestamp_utc": "2026-10-17T16:21:45.645872+00:00",
+  "original_archive": "IN_TIME_Playable_Foundation_v0_1.zip",
+  "original_archive_sha256": "3c11cda620e68585370cde795d24b5e0a157279b2d42a33638dad8eaeb058b2d",
+  "standalone_sha256": "9b257411f6b5f0212634f65c1c1297d7dbccd0bf26498a2f3a5a42485eac1779",
+  "node": "v22.16.0",
+  "npm": "10.9.2",
+  "fresh_checks": [
+    {
+      "command": "npm test",
+      "exit_code": 0,
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0,
+      "log": "core-tests.txt"
+    },
+    {
+      "command": "npm run build",
+      "exit_code": 0,
+      "bytes": 83317,
+      "runtime_modules": 7,
+      "external_dependencies": 0,
+      "log": "build.txt"
+    },
+    {
+      "check": "rebuilt standalone output equals delivered v0.1 bytes",
+      "passed": true
+    },
+    {
+      "check": "original ZIP CRC",
+      "passed": true
+    }
+  ],
+  "browser_checks": "Not rerun during handoff preparation. Prior 29 desktop / 11 mobile results remain historical, with original documented limitations.",
+  "implementation_changes": false,
+  "codex_session_started": false,
+  "remote_actions": [],
+  "purpose": "Fresh baseline and a new implementation brief; not implementation of the v0.2 goal."
+}

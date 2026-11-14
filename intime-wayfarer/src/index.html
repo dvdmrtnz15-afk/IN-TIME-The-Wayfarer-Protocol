@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a181e"><meta name="description" content="A playable temporal puzzle. Leave echoes of your past. Give the city a future."><title>IN-TIME — The Wayfarer Protocol</title><style>/*__STYLE__*/</style></head>
+<body>
+<canvas id="world" aria-label="Three-dimensional temporal puzzle world"></canvas><canvas id="atmosphere" aria-hidden="true"></canvas><div class="vignette" aria-hidden="true"></div>
+<div id="render-error" class="fatal" hidden><h1>The city could not render.</h1><p id="render-error-text"></p><p>This game needs WebGL. Try a browser with hardware acceleration enabled.</p></div>
+<section id="title-screen" class="title-screen" aria-label="Main menu">
+ <header class="masthead"><span class="brand-mark">◇</span><span>TRUENORTH / INTERACTIVE</span><span class="edition">PLAYABLE FOUNDATION · 01</span></header>
+ <div class="title-copy"><div class="eyebrow">ONE CITY. ONE NIGHT. MORE THAN ONE YOU.</div><h1>IN<span class="title-dash">—</span>TIME</h1><p class="subtitle">THE WAYFARER PROTOCOL</p><div class="title-rule"></div><p class="premise">The city has six minutes left.<br>Your past can give it a future.</p><p class="pitch">Walk. Rewind. Leave an echo.<br>Some things are worth bringing back.</p>
+ <div class="title-actions"><button id="begin" class="primary">Begin the night <span>↗</span></button><button id="continue" class="secondary" hidden>Continue your timeline</button></div>
+ <div class="title-links"><button id="title-help" class="quiet-button">How to play</button><button id="title-import" class="quiet-button">Load a save</button><button class="quiet-button sound-toggle" aria-pressed="false">Sound off</button></div>
+ </div>
+ <div class="title-coordinate"><span>41° / THE LAST DISTRICT</span><b>2100</b><span>THE CITY REMEMBERS.</span></div>
+ <footer class="title-footer"><span>3D TEMPORAL PUZZLE / SOLO</span><span>NO ACCOUNT · NO NETWORK · YOUR CHOICES STAY HERE</span></footer>
+</section>
+<section id="hud" hidden aria-label="Game controls">
+ <header class="hud-top"><div class="mission"><div class="eyebrow" id="chapter">CHAPTER 01 / 03</div><h2 id="objective-name">The Relay</h2><p id="objective-detail"></p></div>
+ <div class="clock"><span class="eyebrow">UNTIL THE LAST LIGHT</span><b id="time">06:00</b><span id="clock-caption">THE CITY CLOCK DOES NOT REWIND</span></div>
+ <nav class="hud-nav"><button id="map-button" title="District map (M)" aria-label="District map">⌖</button><button id="pause-button" title="Pause (Escape)" aria-label="Pause">Ⅱ</button></nav></header>
+ <div class="left-status"><div class="stability"><span>STABILITY</span><b id="stability-value">100</b><div class="meter"><i id="stability-bar"></i></div></div><div class="memory-status"><span id="memory-value">0 / 3</span> MEMORIES KEPT</div></div>
+ <aside class="card"><div class="card-roman" id="card-roman">I</div><div><span class="eyebrow">THIS TIMELINE</span><h3 id="card-name">The Magician</h3><p id="card-line"></p></div></aside>
+ <div id="interaction" class="interaction" hidden><button id="interact-prompt"><kbd>E</kbd> <span id="interaction-label">Speak</span> <span>↗</span></button></div>
+ <div class="hud-bottom"><div class="echo-status"><span class="eyebrow">ECHOES / <b id="echo-count">0 OF 2</b></span><div class="echo-slots"><span id="echo-slot-0">—</span><span id="echo-slot-1">—</span></div><small id="recording-label">RECORDING YOUR PATH</small></div>
+ <nav class="controls"><button id="rewind-button"><kbd>Q</kbd><span>Leave echo</span></button><button id="pulse-button"><kbd>SPACE</kbd><span id="pulse-label">Still the storm</span></button><button id="help-button"><kbd>?</kbd><span>Guide</span></button></nav><div class="movement-legend">WASD / ARROWS · MOVE<br>SHIFT · RUN &nbsp; / &nbsp; CLICK GROUND · WALK</div></div>
+ <div class="touch-controls"><div id="joystick" aria-label="Drag to move"><span id="stick"></span></div><div class="touch-actions"><button id="touch-pulse" aria-label="Still the storm">◉<small>PULSE</small></button><button id="touch-interact" aria-label="Interact">E<small>INTERACT</small></button><button id="touch-echo" aria-label="Leave an echo">↶<small>ECHO</small></button></div></div>
+</section>
+<div id="toast" role="status" aria-live="polite"></div>
+<section id="dialogue-panel" class="dialogue-panel" hidden aria-label="Conversation"><div class="eyebrow" id="speaker"></div><p id="dialogue-text"></p><div id="dialogue-choices"></div><small>TIME IS PAUSED WHILE YOU READ.</small></section>
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+ <section id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header><span class="eyebrow" id="modal-kicker"></span><button id="modal-close" class="close-button" aria-label="Close">×</button></header><h2 id="modal-title"></h2><div id="modal-content"></div></section>
+</div>
+<input id="save-input" type="file" accept="application/json,.json" hidden>
+<script>/*__RUNTIME__*/</script>
+</body></html>

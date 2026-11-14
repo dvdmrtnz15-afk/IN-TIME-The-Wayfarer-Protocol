@@ -1,0 +1,5 @@
+
+> intime-wayfarer-protocol@0.1.0 build
+> node scripts/build.mjs
+
+Built standalone HTML: 83317 bytes; 7 runtime files; 0 external dependencies.

@@ -1,0 +1,765 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0a181e"><meta name="description" content="A playable temporal puzzle. Leave echoes of your past. Give the city a future."><title>IN-TIME — The Wayfarer Protocol</title><style>:root{color-scheme:dark;--ink:#0a181e;--paper:#e9e4d5;--muted:#96aaa9;--gold:#d8b579;--mint:#88d9c6;--line:rgba(209,207,173,.2);font-family:Arial,Helvetica,sans-serif;font-synthesis:none}*{box-sizing:border-box}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--ink);color:var(--paper)}button,input{font:inherit}button{cursor:pointer;color:inherit;border:0}button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:5px}button:disabled{opacity:.4;cursor:not-allowed}button{touch-action:manipulation}button:hover{filter:brightness(1.15)}[hidden]{display:none!important}#world,#atmosphere{position:fixed;inset:0;width:100%;height:100%}#world{touch-action:none}#atmosphere{pointer-events:none}.vignette{position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,transparent 30%,rgba(3,12,16,.48) 100%)}.eyebrow{font-size:9px;letter-spacing:.19em;font-weight:600;color:var(--gold);line-height:1.7}.title-screen{position:fixed;inset:0;background:linear-gradient(90deg,rgba(7,20,25,.96) 0%,rgba(7,20,25,.85) 28%,rgba(7,20,25,.2) 63%,rgba(7,20,25,.06));padding:34px 46px;display:flex;flex-direction:column}.masthead{display:flex;align-items:center;gap:12px;font-size:9px;letter-spacing:.18em;color:#bdc9c3}.brand-mark{font-size:26px;color:var(--gold);line-height:1}.edition{margin-left:auto;font-size:8px;color:var(--muted)}.title-copy{margin:auto 0;max-width:600px;padding-top:18px}.title-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(65px,8.4vw,128px);line-height:1.07;letter-spacing:-.065em;font-weight:400;margin:19px 0 8px;color:#eee7d6}.title-dash{font-size:.58em;vertical-align:middle;letter-spacing:-.06em;margin:0 .03em;color:#cdb385}.subtitle{font-size:12px;letter-spacing:.33em;margin:0;color:#c6c6b6}.title-rule{width:45px;height:1px;background:var(--gold);margin:30px 0 22px}.premise{font-family:Georgia,serif;font-size:26px;line-height:1.38;margin:0 0 15px;color:#e0dfce}.pitch{font-size:12px;line-height:1.8;color:var(--muted);margin:0 0 26px}.title-actions{display:flex;align-items:stretch;gap:10px;flex-wrap:wrap}.primary,.secondary{font-size:12px;padding:15px 20px;text-align:left;min-width:202px;border:1px solid var(--gold);letter-spacing:.025em}.primary{background:#d9b984;color:#142326}.primary span{float:right;margin-left:30px}.secondary{background:rgba(9,25,30,.75);color:var(--gold)}.title-links{display:flex;gap:22px;margin-top:23px}.quiet-button{padding:0;background:none;font-size:10px;color:var(--muted)}.title-coordinate{position:absolute;bottom:145px;right:48px;text-align:right;display:flex;flex-direction:column;gap:9px}.title-coordinate b{font-family:Georgia,serif;font-size:65px;line-height:1;font-weight:400;color:#e6c694}.title-coordinate span{font-size:8px;letter-spacing:.17em;color:#acbcb7}.title-footer{display:flex;justify-content:space-between;border-top:1px solid var(--line);padding-top:18px;font-size:8px;letter-spacing:.14em;color:var(--muted)}#hud{position:fixed;inset:0;pointer-events:none;padding:27px 32px}#hud button{pointer-events:auto}.hud-top{display:flex;align-items:flex-start;justify-content:space-between;gap:20px}.mission{width:320px;text-shadow:0 2px 14px #061217}.mission h2{font-family:Georgia,serif;font-size:31px;margin:2px 0 7px;font-weight:400;letter-spacing:-.02em}.mission p{font-size:11px;max-width:265px;margin:0;line-height:1.6;color:#c2d0ca}.clock{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center}.clock b{font-family:Georgia,serif;font-size:43px;line-height:1.15;letter-spacing:.06em;font-weight:400;font-variant-numeric:tabular-nums;text-shadow:0 2px 10px #081a20}.clock>span:last-child{font-size:7px;color:var(--muted);letter-spacing:.11em;margin-top:5px}.clock.urgent b{color:#f19b86}.hud-nav{display:flex;gap:8px}.hud-nav button{font-size:20px;background:rgba(8,23,29,.72);border:1px solid var(--line);height:40px;width:40px}.left-status{position:absolute;left:32px;top:178px;font-size:8px;letter-spacing:.12em}.stability{width:130px}.stability b{float:right;font-size:10px;font-weight:400;color:var(--mint)}.meter{height:2px;width:100%;background:#30454a;margin-top:9px}.meter i{display:block;width:100%;height:2px;background:var(--mint);transition:width .2s}.memory-status{margin-top:15px;color:var(--muted);font-size:7px}.memory-status span{color:var(--paper);margin-right:7px;font-size:10px}.card{position:absolute;right:32px;top:106px;width:210px;display:flex;gap:12px;align-items:center;padding:12px 0 12px 13px;border-left:1px solid var(--line);background:linear-gradient(90deg,rgba(8,23,29,.4),transparent)}.card-roman{width:39px;height:63px;display:flex;align-items:center;justify-content:center;border:1px solid #a88f60;font-family:Georgia,serif;font-size:20px;color:var(--gold);flex-shrink:0;background:rgba(9,24,29,.45);box-shadow:inset 0 0 0 4px rgba(198,171,109,.07)}.card h3{font:15px Georgia,serif;margin:4px 0;color:#e6d3ae}.card p{font-size:9px;color:#a6bcb5;line-height:1.55;margin:0;max-width:140px}.card .eyebrow{font-size:7px}.hud-bottom{position:absolute;bottom:24px;left:32px;right:32px;display:flex;align-items:flex-end;justify-content:space-between;gap:15px}.echo-status{width:180px}.echo-slots{display:flex;gap:7px;margin:8px 0}.echo-slots span{border:1px solid var(--line);background:rgba(6,22,28,.7);font-size:8px;padding:7px 8px;min-width:72px;color:var(--muted)}.echo-slots span.active{color:var(--mint);border-color:#5b9b8c}.echo-status small{font-size:7px;letter-spacing:.1em;color:var(--muted)}.controls{display:flex;gap:8px}.controls button{background:rgba(8,23,29,.87);border:1px solid var(--line);padding:11px 13px;font-size:10px;display:flex;align-items:center;gap:9px}kbd{font:9px Arial,sans-serif;background:rgba(211,189,143,.09);border:1px solid rgba(211,189,143,.3);min-width:20px;padding:4px;color:var(--gold);text-align:center}.movement-legend{font-size:7px;line-height:1.8;text-align:right;letter-spacing:.05em;color:#a9b9b1}.interaction{position:absolute;left:50%;transform:translateX(-50%);bottom:119px}.interaction button{border:1px solid rgba(213,186,132,.6);background:rgba(11,30,35,.9);padding:10px 18px;display:flex;align-items:center;gap:12px;font-size:11px;box-shadow:0 6px 40px #08191b70;white-space:nowrap}#toast{position:fixed;left:50%;top:123px;transform:translate(-50%,-10px);max-width:min(510px,85vw);width:max-content;background:rgba(6,23,29,.89);color:#d9d9c4;border-top:1px solid #9d895d;padding:12px 17px;font-size:10px;line-height:1.6;pointer-events:none;opacity:0;transition:opacity .25s,transform .25s;text-align:center;z-index:6}#toast.show{opacity:1;transform:translate(-50%,0)}.dialogue-panel{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);width:min(660px,calc(100% - 32px));background:rgba(7,24,30,.97);border:1px solid rgba(213,186,132,.35);padding:25px 29px;z-index:10;box-shadow:0 20px 70px #020b0faa}.dialogue-panel p{font-family:Georgia,serif;line-height:1.55;font-size:21px;margin:11px 0 22px;color:#e4e0cf}.dialogue-panel small{font-size:7px;letter-spacing:.15em;color:var(--muted);display:block;margin-top:17px}#dialogue-choices{display:flex;gap:9px;flex-wrap:wrap}#dialogue-choices button{border:1px solid #9f8b62;background:#1a3035;font-size:11px;padding:11px 14px;color:#e0c895}.modal-backdrop{position:fixed;inset:0;background:rgba(3,12,16,.71);backdrop-filter:blur(6px);z-index:20;display:grid;place-items:center;padding:22px}.modal{width:min(650px,100%);max-height:calc(100dvh - 44px);overflow:auto;border:1px solid #475653;background:linear-gradient(145deg,#132b32,#0a1b21);padding:27px 32px;box-shadow:0 25px 100px #0009}.modal>header{display:flex;align-items:center;justify-content:space-between}.close-button{font-size:27px;line-height:1;padding:0 5px;background:none;color:var(--muted)}.modal h2{font:38px Georgia,serif;font-weight:400;margin:10px 0 20px;color:#e4dbc4}.modal p{font-size:12px;line-height:1.8;color:#b9cac4}.modal strong{color:#e2d4b6;font-weight:500}.guide-grid{display:grid;grid-template-columns:1fr 1fr;gap:17px 25px;margin-bottom:24px}.guide-grid h3{font-family:Georgia,serif;color:#e2c99c;font-size:19px;font-weight:400;margin:0 0 6px}.guide-grid p{margin:0;font-size:11px}.guide-grid kbd{display:inline-block;margin-bottom:8px}.modal-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.modal-actions button,.menu-actions button{font-size:11px;padding:12px 15px;border:1px solid var(--line);background:#193138}.menu-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px}.menu-actions button{text-align:left}.menu-actions .wide{grid-column:1/-1}.menu-actions .warm{color:var(--gold);border-color:#a68b5a}.menu-actions .subtle{color:var(--muted)}.setting-row{display:flex;gap:15px;flex-wrap:wrap;padding:17px 0;border-top:1px solid var(--line);margin-top:20px;font-size:11px;color:var(--muted)}.setting-row label{display:flex;align-items:center;gap:7px}input[type=checkbox]{accent-color:var(--mint)}.district-map{width:100%;height:280px;background:#0b2028;border:1px solid var(--line);display:block}.map-caption{display:flex;gap:18px;flex-wrap:wrap;font-size:9px;color:var(--muted);margin:12px 0}.map-caption b{color:var(--gold);font-weight:500}.ending-number{font-size:10px;letter-spacing:.15em;color:var(--gold)}.ending-stats{display:flex;gap:30px;border-block:1px solid var(--line);padding:17px 0;margin-top:20px}.ending-stats strong{font:27px Georgia,serif;display:block}.ending-stats span{font-size:8px;color:var(--muted);letter-spacing:.09em}.touch-controls{display:none}.fatal{position:fixed;inset:0;z-index:99;background:#0b1c24;padding:15vh 8vw}.fatal h1{font:40px Georgia,serif}.fatal p{max-width:580px;font-size:15px;line-height:1.7;color:#b3c4c2}.low-effects *{scroll-behavior:auto!important;transition:none!important}.session-paused::after{content:'TIME PAUSED';position:fixed;bottom:12px;left:50%;transform:translateX(-50%);z-index:23;color:var(--gold);font-size:7px;letter-spacing:.25em}
+@media(max-width:900px){.mission{width:260px}.mission p{max-width:210px}.card{width:168px;right:22px}.card h3{font-size:13px}.card p{font-size:8px}.card-roman{width:32px;height:53px;font-size:16px}.movement-legend{display:none}.hud-bottom{bottom:19px}.title-copy h1{font-size:88px}.title-coordinate{right:30px}.title-screen{padding:27px 30px}.title-footer{font-size:7px}}
+@media(pointer:coarse){.touch-controls{display:block}.controls{display:none}.hud-bottom{bottom:158px}.echo-status{width:180px}.interaction{bottom:173px}#joystick{pointer-events:auto;touch-action:none;position:absolute;bottom:30px;left:30px;width:112px;height:112px;border:1px solid #829d9160;border-radius:50%;background:#0a222c55}#joystick:before{content:'';position:absolute;inset:17px;border:1px solid #829d9130;border-radius:50%}#stick{position:absolute;left:36px;top:36px;width:38px;height:38px;border:1px solid #d5bd87aa;background:#b8c3a926;border-radius:50%;box-shadow:0 0 20px #0003}.touch-actions{position:absolute;bottom:29px;right:24px;display:flex;align-items:flex-end;gap:8px}.touch-actions button{height:63px;width:61px;background:#0b2632b0;border:1px solid #bba77865;border-radius:50%;font-size:23px;color:var(--gold);padding:8px 0}.touch-actions small{display:block;font-size:6px;letter-spacing:.1em;margin-top:3px}.touch-actions #touch-echo{width:72px;height:72px;font-size:30px;background:#30514a80}}
+@media(max-width:600px){.title-screen{padding:23px 22px;background:linear-gradient(90deg,#071419ef,#071419c0 65%,#07141965)}.masthead{font-size:7px;gap:9px}.edition{font-size:6px;max-width:100px;text-align:right;line-height:1.7}.title-copy{padding-top:0;margin:auto 0;max-width:100%}.title-copy>.eyebrow{font-size:7px;letter-spacing:.14em}.title-copy h1{font-size:72px;margin-top:18px}.subtitle{font-size:9px;letter-spacing:.23em}.title-rule{margin:25px 0 20px}.premise{font-size:23px}.pitch{font-size:11px;margin-bottom:25px}.title-actions{flex-direction:column;max-width:280px}.primary,.secondary{font-size:11px;padding:14px 17px}.title-links{gap:21px;margin-top:22px}.quiet-button{font-size:9px}.title-coordinate{display:none}.title-footer{font-size:6px;letter-spacing:.07em;line-height:1.8;gap:20px}.title-footer span:last-child{max-width:140px;text-align:right}#hud{padding:18px}.mission{width:62%}.mission h2{font-size:26px}.mission>.eyebrow{font-size:7px}.mission p{font-size:9px;max-width:190px;line-height:1.55}.clock{left:auto;right:18px;transform:none;top:70px;align-items:flex-end}.clock>.eyebrow{font-size:6px;letter-spacing:.08em}.clock b{font-size:31px}.clock>span:last-child{display:none}.hud-nav{gap:5px}.hud-nav button{height:33px;width:33px;font-size:18px}.left-status{top:155px;left:18px}.stability{width:94px;font-size:7px}.memory-status{font-size:6px}.card{top:auto;bottom:169px;right:17px;width:169px;padding:8px 0 8px 9px}.card h3{font-size:13px}.card p{font-size:8px}.card-roman{width:31px;height:49px}.card .eyebrow{font-size:6px}.hud-bottom{left:18px;right:18px}.echo-status{width:143px}.echo-slots{gap:5px}.echo-slots span{font-size:7px;min-width:57px;padding:7px 5px}.echo-status>.eyebrow{font-size:7px}.echo-status small{font-size:6px}.interaction{bottom:263px}.interaction button{font-size:9px;padding:8px 12px;max-width:92vw;white-space:normal}#toast{top:219px;font-size:9px;padding:9px 12px;max-width:90vw}.dialogue-panel{bottom:18px;padding:20px}.dialogue-panel p{font-size:19px}#dialogue-choices{flex-direction:column}.dialogue-panel small{font-size:6px}.modal-backdrop{padding:13px}.modal{padding:20px;max-height:calc(100dvh - 26px)}.modal h2{font-size:32px;margin-bottom:20px}.guide-grid{gap:18px;grid-template-columns:1fr}.guide-grid h3{font-size:18px}.guide-grid p{font-size:10px}.menu-actions{grid-template-columns:1fr}.modal-actions{flex-direction:column}.modal-actions button{width:100%}.district-map{height:253px}.setting-row{font-size:10px;gap:12px}.ending-stats{gap:20px}}
+@media(max-height:600px){.title-screen{padding:20px 30px}.title-copy h1{font-size:68px;margin:8px 0}.title-copy>.eyebrow{font-size:7px}.title-copy{margin:auto 0}.title-rule{margin:14px 0}.premise{font-size:20px}.pitch{display:none}.title-actions{margin-top:17px}.title-links{margin-top:13px}.title-coordinate{bottom:90px}.title-footer{font-size:6px}.left-status{top:134px}.card{top:105px;bottom:auto}.hud-bottom{bottom:15px}.mission h2{font-size:25px}.clock b{font-size:32px}.dialogue-panel{bottom:12px;max-height:85vh;overflow:auto}.touch-controls #joystick{bottom:17px;width:88px;height:88px;left:20px}#stick{left:24px;top:24px}.touch-actions{bottom:17px}.touch-actions button{width:53px;height:53px}.touch-actions #touch-echo{width:61px;height:61px}.hud-bottom .echo-status{display:none}.interaction{bottom:35px}.modal h2{font-size:30px}.guide-grid{grid-template-columns:1fr 1fr}.district-map{height:180px}}
+.in-dialogue .hud-bottom,.in-dialogue .touch-controls,.in-dialogue .card{visibility:hidden}
+</style></head>
+<body>
+<canvas id="world" aria-label="Three-dimensional temporal puzzle world"></canvas><canvas id="atmosphere" aria-hidden="true"></canvas><div class="vignette" aria-hidden="true"></div>
+<div id="render-error" class="fatal" hidden><h1>The city could not render.</h1><p id="render-error-text"></p><p>This game needs WebGL. Try a browser with hardware acceleration enabled.</p></div>
+<section id="title-screen" class="title-screen" aria-label="Main menu">
+ <header class="masthead"><span class="brand-mark">◇</span><span>TRUENORTH / INTERACTIVE</span><span class="edition">PLAYABLE FOUNDATION · 01</span></header>
+ <div class="title-copy"><div class="eyebrow">ONE CITY. ONE NIGHT. MORE THAN ONE YOU.</div><h1>IN<span class="title-dash">—</span>TIME</h1><p class="subtitle">THE WAYFARER PROTOCOL</p><div class="title-rule"></div><p class="premise">The city has six minutes left.<br>Your past can give it a future.</p><p class="pitch">Walk. Rewind. Leave an echo.<br>Some things are worth bringing back.</p>
+ <div class="title-actions"><button id="begin" class="primary">Begin the night <span>↗</span></button><button id="continue" class="secondary" hidden>Continue your timeline</button></div>
+ <div class="title-links"><button id="title-help" class="quiet-button">How to play</button><button id="title-import" class="quiet-button">Load a save</button><button class="quiet-button sound-toggle" aria-pressed="false">Sound off</button></div>
+ </div>
+ <div class="title-coordinate"><span>41° / THE LAST DISTRICT</span><b>2100</b><span>THE CITY REMEMBERS.</span></div>
+ <footer class="title-footer"><span>3D TEMPORAL PUZZLE / SOLO</span><span>NO ACCOUNT · NO NETWORK · YOUR CHOICES STAY HERE</span></footer>
+</section>
+<section id="hud" hidden aria-label="Game controls">
+ <header class="hud-top"><div class="mission"><div class="eyebrow" id="chapter">CHAPTER 01 / 03</div><h2 id="objective-name">The Relay</h2><p id="objective-detail"></p></div>
+ <div class="clock"><span class="eyebrow">UNTIL THE LAST LIGHT</span><b id="time">06:00</b><span id="clock-caption">THE CITY CLOCK DOES NOT REWIND</span></div>
+ <nav class="hud-nav"><button id="map-button" title="District map (M)" aria-label="District map">⌖</button><button id="pause-button" title="Pause (Escape)" aria-label="Pause">Ⅱ</button></nav></header>
+ <div class="left-status"><div class="stability"><span>STABILITY</span><b id="stability-value">100</b><div class="meter"><i id="stability-bar"></i></div></div><div class="memory-status"><span id="memory-value">0 / 3</span> MEMORIES KEPT</div></div>
+ <aside class="card"><div class="card-roman" id="card-roman">I</div><div><span class="eyebrow">THIS TIMELINE</span><h3 id="card-name">The Magician</h3><p id="card-line"></p></div></aside>
+ <div id="interaction" class="interaction" hidden><button id="interact-prompt"><kbd>E</kbd> <span id="interaction-label">Speak</span> <span>↗</span></button></div>
+ <div class="hud-bottom"><div class="echo-status"><span class="eyebrow">ECHOES / <b id="echo-count">0 OF 2</b></span><div class="echo-slots"><span id="echo-slot-0">—</span><span id="echo-slot-1">—</span></div><small id="recording-label">RECORDING YOUR PATH</small></div>
+ <nav class="controls"><button id="rewind-button"><kbd>Q</kbd><span>Leave echo</span></button><button id="pulse-button"><kbd>SPACE</kbd><span id="pulse-label">Still the storm</span></button><button id="help-button"><kbd>?</kbd><span>Guide</span></button></nav><div class="movement-legend">WASD / ARROWS · MOVE<br>SHIFT · RUN &nbsp; / &nbsp; CLICK GROUND · WALK</div></div>
+ <div class="touch-controls"><div id="joystick" aria-label="Drag to move"><span id="stick"></span></div><div class="touch-actions"><button id="touch-pulse" aria-label="Still the storm">◉<small>PULSE</small></button><button id="touch-interact" aria-label="Interact">E<small>INTERACT</small></button><button id="touch-echo" aria-label="Leave an echo">↶<small>ECHO</small></button></div></div>
+</section>
+<div id="toast" role="status" aria-live="polite"></div>
+<section id="dialogue-panel" class="dialogue-panel" hidden aria-label="Conversation"><div class="eyebrow" id="speaker"></div><p id="dialogue-text"></p><div id="dialogue-choices"></div><small>TIME IS PAUSED WHILE YOU READ.</small></section>
+<div id="modal-backdrop" class="modal-backdrop" hidden>
+ <section id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title"><header><span class="eyebrow" id="modal-kicker"></span><button id="modal-close" class="close-button" aria-label="Close">×</button></header><h2 id="modal-title"></h2><div id="modal-content"></div></section>
+</div>
+<input id="save-input" type="file" accept="application/json,.json" hidden>
+<script>
+/* FILE: src/core/rng.js */
+/* Adapted from the user's recovered Trinity SeededRng, commit
+ * 02447f325dd6e6c5d7c8f420ed385368e42a49f1. See reference/ and PROVENANCE.md.
+ * The state is explicitly wrapped to uint32; API inputs are validated.
+ * This is a seeded non-cryptographic generator, not novel cryptography. */
+(() => {
+  'use strict';
+  const IT = globalThis.IT = globalThis.IT || {};
+  class SeededRng {
+    constructor(seed) {
+      if (!Number.isSafeInteger(seed)) throw new TypeError('Seed must be a safe integer.');
+      this.state = seed >>> 0;
+    }
+    next() {
+      this.state = (this.state + 0x6d2b79f5) >>> 0;
+      let t = this.state;
+      t = Math.imul(t ^ (t >>> 15), t | 1);
+      t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    }
+    nextInt(min, max) {
+      if (!Number.isSafeInteger(min) || !Number.isSafeInteger(max) || min > max || max - min > 0x7fffffff) {
+        throw new RangeError('Invalid random integer interval.');
+      }
+      return Math.floor(this.next() * (max - min + 1)) + min;
+    }
+    clone() { return new SeededRng(this.state); }
+    getState() { return this.state; }
+    shuffle(items) {
+      const result = [...items];
+      for (let i = result.length - 1; i > 0; i--) {
+        const j = this.nextInt(0, i);
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    }
+  }
+  IT.SeededRng = SeededRng;
+})();
+
+
+/* FILE: src/core/world.js */
+/* Declarative world data. Dimensions are full widths, world units are metres.
+ * Fictional district; new content, not an extraction of the CHIRAQ map. */
+(() => {
+  'use strict';
+  const IT = globalThis.IT;
+  const walls=[];
+  function wall(id,x,z,w,d,h=1.6){ walls.push({id,x,z,w,d,h}); }
+  function room(id,l,r,n,s,doorX){
+    wall(id+'-west',l,(n+s)/2,.8,s-n);
+    wall(id+'-east',r,(n+s)/2,.8,s-n);
+    wall(id+'-north',(l+r)/2,n,r-l,.8);
+    wall(id+'-southL',(l+doorX-2)/2,s,doorX-2-l,.8);
+    wall(id+'-southR',(doorX+2+r)/2,s,r-doorX-2,.8);
+  }
+  room('relay',-28,-8,-18,4,-17);
+  room('archive',8,28,-18,4,18);
+  room('convergence',-7,7,-24,-4,0);
+  wall('fountain',0,7,3,3,.75);
+  IT.WORLD = Object.freeze({
+    bounds:{left:-32,right:32,north:-27,south:24},
+    anchors:[{x:0,z:18},{x:5,z:17},{x:0,z:12}], walls,
+    gates:[
+      {id:'relay',name:'Relay gate',x:-17,z:4,w:4,d:.8,h:2.8,stage:0,plates:['relay-a']},
+      {id:'archive',name:'Archive gate',x:18,z:4,w:4,d:.8,h:2.8,stage:1,plates:['archive-a','archive-b']},
+      {id:'convergence',name:'Convergence gate',x:0,z:-4,w:4,d:.8,h:3.2,stage:2,plates:['final-a','final-b']}
+    ],
+    plates:[
+      {id:'relay-a',gate:'relay',x:-20,z:12,r:1.45,label:'I'},
+      {id:'archive-a',gate:'archive',x:12,z:14,r:1.45,label:'II'},
+      {id:'archive-b',gate:'archive',x:25,z:12,r:1.45,label:'III'},
+      {id:'final-a',gate:'convergence',x:-4,z:1,r:1.45,label:'IV'},
+      {id:'final-b',gate:'convergence',x:4,z:1,r:1.45,label:'V'}
+    ],
+    nodes:[
+      {id:'relay',type:'terminal',x:-18,z:-10,label:'Restore the Relay',stage:0},
+      {id:'archive',type:'terminal',x:18,z:-10,label:'Unseal the Archive',stage:1},
+      {id:'convergence',type:'terminal',x:0,z:-18,label:'The Last Light',stage:2},
+      {id:'memory-1',type:'memory',x:-25,z:-13,label:'A voice in the rain'},
+      {id:'memory-2',type:'memory',x:25,z:-13,label:'A name worth keeping'},
+      {id:'memory-3',type:'memory',x:-4,z:-20,label:'The promise'},
+      {id:'mira',type:'npc',x:2,z:16,label:'Mira · the Watcher'},
+      {id:'rowan',type:'npc',x:-12,z:10,label:'Rowan · keeper of the Relay'},
+      {id:'ivo',type:'npc',x:12,z:8,label:'Ivo · the archivist'}
+    ],
+    hazards:[
+      {id:'wisp-a',stage:1,x:19,z:8,rx:6,rz:1.8,period:900,phase:0},
+      {id:'wisp-b',stage:2,x:0,z:-10,rx:4.5,rz:3,period:1050,phase:2.1}
+    ]
+  });
+  IT.CARDS = Object.freeze([
+    {id:'fool',name:'The Fool',roman:'0',line:'A lighter step.',speed:1.12},
+    {id:'magician',name:'The Magician',roman:'I',line:'Your pulse lasts longer.',pulse:1.4},
+    {id:'priestess',name:'The High Priestess',roman:'II',line:'Anomalies see less.',sight:.72},
+    {id:'empress',name:'The Empress',roman:'III',line:'Stability returns faster.',regen:1.8},
+    {id:'emperor',name:'The Emperor',roman:'IV',line:'Your presence resists damage.',damage:.65},
+    {id:'lovers',name:'The Lovers',roman:'VI',line:'Presence reaches farther.',plate:1.3},
+    {id:'chariot',name:'The Chariot',roman:'VII',line:'A longer, faster stride.',speed:1.2},
+    {id:'strength',name:'Strength',roman:'VIII',line:'The storm cannot take as much.',damage:.55},
+    {id:'hermit',name:'The Hermit',roman:'IX',line:'Walk unseen a little longer.',sight:.65},
+    {id:'wheel',name:'Wheel of Fortune',roman:'X',line:'Your pulse returns sooner.',cooldown:.68},
+    {id:'temperance',name:'Temperance',roman:'XIV',line:'Recovery in the quiet.',regen:2.4},
+    {id:'star',name:'The Star',roman:'XVII',line:'A stronger pulse. A softer storm.',pulse:1.2,damage:.8}
+  ]);
+  IT.activeCard = g => IT.CARDS[g.deck[g.cardIndex % g.deck.length]];
+  IT.plateActive = (g,p) => {
+    const r=p.r*(IT.activeCard(g).plate||1);
+    return [g.player,...g.echoes.map(e=>e.pos)].some(a=>Math.hypot(a.x-p.x,a.z-p.z)<=r);
+  };
+  IT.gateOpen = (g,gate) => !!g.facts[gate.id] || (g.stage===gate.stage && gate.plates.every(id=>IT.plateActive(g,IT.WORLD.plates.find(p=>p.id===id))));
+  const hit=(x,z,r,o)=>x+r>o.x-o.w/2 && x-r<o.x+o.w/2 && z+r>o.z-o.d/2 && z-r<o.z+o.d/2;
+  IT.blocked = (g,x,z,r=.42) => {
+    if(!Number.isFinite(x)||!Number.isFinite(z)) return true;
+    const b=IT.WORLD.bounds;
+    return x-r<b.left||x+r>b.right||z-r<b.north||z+r>b.south||
+      walls.some(o=>hit(x,z,r,o))||IT.WORLD.gates.some(o=>!IT.gateOpen(g,o)&&hit(x,z,r,o));
+  };
+  IT.lineClear=(g,a,b)=>{
+    const steps=Math.ceil(Math.hypot(a.x-b.x,a.z-b.z)/.3);
+    for(let i=1;i<steps;i++) if(IT.blocked(g,a.x+(b.x-a.x)*i/steps,a.z+(b.z-a.z)*i/steps,.04))return false;
+    return true;
+  };
+  IT.nearestNode=g=>IT.WORLD.nodes.filter(n=>Math.hypot(n.x-g.player.x,n.z-g.player.z)<2.25 && IT.lineClear(g,g.player,n) && !(n.type==='memory'&&g.facts.fragments.includes(n.id)))
+    .sort((a,b)=>Math.hypot(a.x-g.player.x,a.z-g.player.z)-Math.hypot(b.x-g.player.x,b.z-g.player.z))[0]||null;
+  IT.dronePositions=g=>IT.WORLD.hazards.filter(h=>g.stage>=h.stage).map(h=>{
+    const a=g.droneTick/h.period*Math.PI*2+h.phase;
+    return {...h,x:h.x+Math.cos(a)*h.rx,z:h.z+Math.sin(a)*h.rz,angle:Math.atan2(-Math.sin(a)*h.rx,Math.cos(a)*h.rz)};
+  });
+  IT.objective=g=>[
+    ['THE RELAY','Leave an echo on plate I. Enter the western gate.'],
+    ['THE ARCHIVE','Leave two echoes on plates II and III. Unseal the east archive.'],
+    ['THE LAST LIGHT','Hold plates IV and V with echoes. Reach the north tower.']
+  ][Math.min(g.stage,2)];
+  // Bounded A*, deterministic tie-breaking. Navigation never crosses a closed gate.
+  IT.findPath=(g,target)=>{
+    if(!target||IT.blocked(g,target.x,target.z))return null;
+    const start={x:Math.round(g.player.x),z:Math.round(g.player.z)},end={x:Math.round(target.x),z:Math.round(target.z)};
+    const key=(x,z)=>x+','+z;
+    const open=[{...start,cost:0,score:0}],best=new Map([[key(start.x,start.z),0]]),parents=new Map();
+    let goal=null;
+    for(let iter=0;open.length&&iter<4500;iter++){
+      open.sort((a,b)=>a.score-b.score||a.cost-b.cost);const c=open.shift(),ck=key(c.x,c.z);
+      if(c.cost!==best.get(ck))continue;
+      if(c.x===end.x&&c.z===end.z){goal=c;break;}
+      for(const [dx,dz] of [[0,-1],[-1,0],[1,0],[0,1],[-1,-1],[1,-1],[-1,1],[1,1]]){
+        const x=c.x+dx,z=c.z+dz;
+        if(IT.blocked(g,x,z)||((dx&&dz)&&(IT.blocked(g,c.x+dx,c.z)||IT.blocked(g,c.x,c.z+dz))))continue;
+        const k=key(x,z),cost=c.cost+Math.hypot(dx,dz);
+        if(cost>=(best.get(k)??Infinity))continue;
+        best.set(k,cost);parents.set(k,c);open.push({x,z,cost,score:cost+Math.hypot(end.x-x,end.z-z)});
+      }
+    }
+    if(!goal)return null;
+    const path=[];for(let c=goal;c;c=parents.get(key(c.x,c.z)))path.push({x:c.x,z:c.z});path.reverse();path.shift();
+    if(!path.length||Math.hypot(path.at(-1).x-target.x,path.at(-1).z-target.z)>.05)path.push({x:target.x,z:target.z});
+    return path;
+  };
+})();
+
+
+/* FILE: src/core/simulation.js */
+/* Fixed-step temporal game. Rendering, wall-clock time and audio have no authority
+ * over outcomes. Checksums detect accidental corruption, not malicious tampering. */
+(() => {
+  'use strict';
+  const IT=globalThis.IT;
+  const clone=v=>JSON.parse(JSON.stringify(v));
+  function canonical(v){
+    if(v===null||typeof v!=='object')return JSON.stringify(v);
+    if(Array.isArray(v))return '['+v.map(canonical).join(',')+']';
+    return '{'+Object.keys(v).sort().map(k=>JSON.stringify(k)+':'+canonical(v[k])).join(',')+'}';
+  }
+  function checksum(v){const s=typeof v==='string'?v:canonical(v);let h=2166136261;for(let i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619);}return (h>>>0).toString(16).padStart(8,'0');}
+  function event(g,kind,data={}){
+    const row={seq:g.ledger.length,tick:g.totalTick,kind,data,prev:g.ledger.at(-1)?.hash||'00000000'};
+    g.ledger.push({...row,hash:checksum(row)});
+  }
+  IT.verifyLedger=ledger=>{
+    if(!Array.isArray(ledger)||!ledger.length||ledger.length>20000)return false;
+    let prev='00000000';for(let i=0;i<ledger.length;i++){
+      const row=ledger[i];if(!row||row.seq!==i||row.prev!==prev)return false;
+      const {hash,...body}=row;if(checksum(body)!==hash)return false;prev=hash;
+    }return true;
+  };
+  function notice(g,text){g.notice={id:g.notice.id+1,text,tick:g.totalTick};}
+  function resetLoop(g){
+    const a=IT.WORLD.anchors[Math.min(g.stage,2)];g.player={x:a.x,z:a.z,angle:Math.PI,stability:100};
+    g.loopTick=0;g.droneTick=0;g.record=[[0,a.x,a.z,Math.PI]];
+    for(const e of g.echoes){e.cursor=0;e.holding=false;e.pos={x:e.path[0][1],z:e.path[0][2],angle:e.path[0][3]};}
+  }
+  IT.createGame=(seed=2100)=>{
+    const rng=new IT.SeededRng(seed);
+    const g={seed:seed>>>0,stage:0,mode:'playing',totalTick:0,remaining:21600,loopTick:0,droneTick:0,
+      player:{x:0,z:18,angle:Math.PI,stability:100},echoes:[],record:[[0,0,18,Math.PI]],nextEchoId:1,
+      rewinds:0,retries:0,facts:{relay:false,archive:false,convergence:false,fragments:[]},deck:rng.shuffle(IT.CARDS.map((_,i)=>i)),cardIndex:0,
+      pulseUntil:0,pulseReadyAt:0,damageReadyAt:0,ledger:[],notice:{id:0,text:'Stand on plate I. Press Q to leave your first echo.',tick:0},dialogue:null,ending:null};
+    event(g,'GENESIS',{seed:g.seed});return g;
+  };
+  function echoes(g){
+    for(const e of g.echoes){
+      while(e.cursor<e.path.length-1&&e.path[e.cursor+1][0]<=g.loopTick)e.cursor++;
+      const a=e.path[e.cursor],b=e.path[Math.min(e.cursor+1,e.path.length-1)];
+      const t=b[0]===a[0]?0:Math.min(1,(g.loopTick-a[0])/(b[0]-a[0]));
+      e.pos={x:a[1]+(b[1]-a[1])*t,z:a[2]+(b[2]-a[2])*t,angle:a[3]};e.holding=g.loopTick>=e.path.at(-1)[0];
+    }
+  }
+  IT.rewind=g=>{
+    if(g.mode!=='playing')return false;
+    if(g.loopTick<30){notice(g,'Record at least half a second before leaving an echo.');return false;}
+    const path=clone(g.record),last=[g.loopTick,g.player.x,g.player.z,g.player.angle];
+    if(path.at(-1)[0]!==g.loopTick)path.push(last);else path[path.length-1]=last;
+    g.echoes.push({id:g.nextEchoId++,path,cursor:0,holding:false,pos:{x:path[0][1],z:path[0][2],angle:path[0][3]}});
+    if(g.echoes.length>2)g.echoes.shift();g.rewinds++;g.cardIndex=(g.cardIndex+1)%12;resetLoop(g);
+    event(g,'ECHO_CREATED',{id:g.nextEchoId-1,frames:path.length,stage:g.stage});notice(g,'Echo '+(g.nextEchoId-1)+' is retracing your steps. The city clock did not rewind.');return true;
+  };
+  IT.pulse=g=>{
+    if(g.mode!=='playing'||g.totalTick<g.pulseReadyAt)return false;
+    const c=IT.activeCard(g);g.pulseUntil=g.totalTick+Math.round(180*(c.pulse||1));g.pulseReadyAt=g.totalTick+Math.round(720*(c.cooldown||1));
+    event(g,'PULSE');notice(g,'The anomalies are still. Keep moving.');return true;
+  };
+  IT.step=(g,input={})=>{
+    if(g.mode!=='playing')return;
+    if(input.rewind){IT.rewind(g);return;}
+    if(input.interact){IT.interact(g);return;}
+    if(input.pulse)IT.pulse(g);
+    g.totalTick++;g.remaining--;g.loopTick++;if(g.totalTick>=g.pulseUntil)g.droneTick++;
+    echoes(g);
+    let x=Number.isFinite(input.x)?input.x:0,z=Number.isFinite(input.z)?input.z:0;
+    const length=Math.hypot(x,z);if(length>1){x/=length;z/=length;}
+    const c=IT.activeCard(g),speed=4.8*(c.speed||1)*(input.sprint?1.5:1)/60;
+    if(Math.hypot(x,z)>.01)g.player.angle=Math.atan2(x,z);
+    const nx=g.player.x+x*speed,nz=g.player.z+z*speed;
+    if(!IT.blocked(g,nx,g.player.z))g.player.x=nx;
+    if(!IT.blocked(g,g.player.x,nz))g.player.z=nz;
+    if(g.loopTick%3===0)g.record.push([g.loopTick,g.player.x,g.player.z,g.player.angle]);
+    if(g.totalTick>=g.pulseUntil){
+      let threatened=false;
+      for(const h of IT.dronePositions(g)){
+        if(Math.hypot(h.x-g.player.x,h.z-g.player.z)<3.4*(c.sight||1)&&IT.lineClear(g,h,g.player)){
+          threatened=true;if(g.totalTick>=g.damageReadyAt){g.player.stability=Math.max(0,g.player.stability-13*(c.damage||1));g.damageReadyAt=g.totalTick+40;notice(g,'Temporal interference. Use Space to pulse, or move away.');}
+        }
+      }
+      if(!threatened)g.player.stability=Math.min(100,g.player.stability+.027*(c.regen||1));
+    }
+    if(g.remaining<=0||g.player.stability<=0){g.remaining=Math.max(0,g.remaining);g.mode='failed';event(g,'COLLAPSE',{cause:g.remaining===0?'time':'stability'});}
+  };
+  const memories={
+    'memory-1':['A voice in the rain','“When the lights go out, leave a lantern in the window. Someone is still trying to come home.”'],
+    'memory-2':['A name worth keeping','The archive holds no kings, no victories. Just names. The people who kept the city alive when nobody was watching.'],
+    'memory-3':['The promise','“Bring back the light. But bring back what it was for.” The final recording is your own voice.']
+  };
+  function dialogue(g,speaker,text,choices=[{id:'close',label:'Keep moving'}]){g.mode='dialogue';g.dialogue={speaker,text,choices};}
+  IT.interact=g=>{
+    if(g.mode!=='playing')return false;const n=IT.nearestNode(g);if(!n)return false;
+    if(n.type==='memory'){
+      if(g.facts.fragments.includes(n.id))return false;
+      g.facts.fragments.push(n.id);event(g,'MEMORY_ANCHORED',{id:n.id});dialogue(g,...memories[n.id]);return true;
+    }
+    if(n.type==='npc'){
+      let text='';
+      if(n.id==='mira')text=g.rewinds?`“This is the ${g.rewinds+1}th version of this conversation. I remember the others. The city has changed ${g.stage} times. You can still choose what comes next.”`:'“Six minutes until the city goes dark. Walk to the western pressure plate, then rewind. Your echo will repeat that walk and hold the plate. You take the open gate.”';
+      if(n.id==='rowan')text=g.facts.relay?'“The Relay is anchored. No rewind can undo that. The Archive needs two versions of you, standing on two different plates.”':'“Your echo stops where you stop. End your recording in the centre of plate I. Leave it there. Rewind, then enter the western gate while it holds.”';
+      if(n.id==='ivo')text=g.facts.archive?'“The north tower holds the last decision. Two echoes can open its gate. Three memories can change what you bring back.”':'“Two plates, two echoes. Record one route, rewind. Record the second, rewind. Both will replay together. A third recording replaces your oldest echo.”';
+      dialogue(g,n.label,text);return true;
+    }
+    if(n.stage<g.stage){dialogue(g,n.label,'This place is anchored. The city remembers. Move toward the next landmark.');return true;}
+    if(n.stage!==g.stage)return false;
+    const gate=IT.WORLD.gates[n.stage];if(!IT.gateOpen(g,gate)){notice(g,'The gate needs its pressure plates held before this terminal can anchor.');return false;}
+    if(n.id==='convergence'){
+      dialogue(g,'THE LAST LIGHT','The city can return. Or its signal can leave with you. This decision will be anchored; rewinding cannot undo it.',[{id:'restore',label:'Restore the district'},{id:'depart',label:'Carry the signal away'},{id:'close',label:'Not yet — keep exploring'}]);return true;
+    }
+    g.facts[n.id]=true;g.stage++;g.echoes=[];resetLoop(g);event(g,'LANDMARK_ANCHORED',{id:n.id});
+    dialogue(g,n.id==='relay'?'THE RELAY IS ALIVE':'THE ARCHIVE REMEMBERS',n.id==='relay'?'A street of lanterns wakes in the rain. This change survives every rewind. Next: leave two echoes on plates II and III, then enter the eastern Archive.':'The city has its memory back. The north tower is listening. Leave echoes on plates IV and V, then reach the Last Light.');return true;
+  };
+  IT.choose=(g,id)=>{
+    if(g.mode!=='dialogue'||!g.dialogue?.choices.some(c=>c.id===id))return false;
+    if(id==='close'){g.mode='playing';g.dialogue=null;return true;}
+    if(g.stage!==2||!['restore','depart'].includes(id)||!g.facts.relay||!g.facts.archive)return false;
+    g.facts.convergence=true;g.mode='ended';g.dialogue=null;g.ending=id==='depart'?'signal':g.facts.fragments.length===3?'home':'light';
+    event(g,'ENDING_ANCHORED',{ending:g.ending,memories:g.facts.fragments.length});return true;
+  };
+  IT.retry=g=>{
+    if(!['failed','paused','playing'].includes(g.mode))return false;
+    g.echoes=[];g.remaining=21600;g.mode='playing';g.dialogue=null;g.pulseUntil=0;g.pulseReadyAt=0;g.damageReadyAt=0;g.retries++;resetLoop(g);
+    event(g,'CHECKPOINT_RETRY',{stage:g.stage});notice(g,'Checkpoint restored. Your anchored progress remains.');return true;
+  };
+  function validate(g){
+    const finite=(v,min,max)=>typeof v==='number'&&Number.isFinite(v)&&v>=min&&v<=max;
+    const int=(v,min,max)=>Number.isSafeInteger(v)&&v>=min&&v<=max;
+    const pose=p=>p&&finite(p.x,-33,33)&&finite(p.z,-28,25)&&finite(p.angle,-Math.PI*2,Math.PI*2);
+    const path=p=>Array.isArray(p)&&p.length>0&&p.length<=7500&&p.every((a,i)=>Array.isArray(a)&&a.length===4&&int(a[0],0,21600)&&finite(a[1],-33,33)&&finite(a[2],-28,25)&&finite(a[3],-Math.PI*2,Math.PI*2)&&(i===0?a[0]===0:a[0]>p[i-1][0]));
+    if(!g||!int(g.seed,0,4294967295)||!int(g.stage,0,2)||!['playing','paused','dialogue','failed','ended'].includes(g.mode)||!pose(g.player)||!finite(g.player.stability,0,100)||!int(g.remaining,0,21600)||!int(g.totalTick,0,1e9)||!int(g.loopTick,0,21600)||!int(g.droneTick,0,21600))throw Error('Invalid game state.');
+    if(!g.facts||typeof g.facts.relay!=='boolean'||typeof g.facts.archive!=='boolean'||typeof g.facts.convergence!=='boolean'||g.facts.relay!==(g.stage>=1)||g.facts.archive!==(g.stage>=2)||g.facts.convergence!==(g.mode==='ended'))throw Error('Inconsistent anchored progress.');
+    if(!Array.isArray(g.facts.fragments)||g.facts.fragments.length>3||new Set(g.facts.fragments).size!==g.facts.fragments.length||!g.facts.fragments.every(x=>typeof x==='string'&&Object.hasOwn(memories,x)))throw Error('Invalid memories.');
+    if(!Array.isArray(g.deck)||g.deck.length!==12||new Set(g.deck).size!==12||!g.deck.every(v=>int(v,0,11))||!int(g.cardIndex,0,11))throw Error('Invalid deck.');
+    if(!path(g.record)||g.record.at(-1)[0]>g.loopTick||!Array.isArray(g.echoes)||g.echoes.length>2||g.echoes.some(e=>!int(e.id,1,100000)||!path(e.path)||!int(e.cursor,0,e.path.length-1)||!pose(e.pos)||typeof e.holding!=='boolean'))throw Error('Invalid echo data.');
+    if(!int(g.nextEchoId,1,100001)||new Set(g.echoes.map(e=>e.id)).size!==g.echoes.length||g.echoes.some(e=>e.id>=g.nextEchoId)||!int(g.rewinds,0,100000)||!int(g.retries,0,100000))throw Error('Invalid counters.');
+    for(const k of ['pulseUntil','pulseReadyAt','damageReadyAt'])if(!int(g[k],0,1e9))throw Error('Invalid timing.');
+    if(!g.notice||!int(g.notice.id,0,1e6)||typeof g.notice.text!=='string'||g.notice.text.length>500||!int(g.notice.tick,0,1e9))throw Error('Invalid notice.');
+    if(g.mode==='dialogue'){
+      if(!g.dialogue||typeof g.dialogue.speaker!=='string'||typeof g.dialogue.text!=='string'||g.dialogue.text.length>3000||!Array.isArray(g.dialogue.choices)||g.dialogue.choices.length>3||!g.dialogue.choices.every(c=>['close','restore','depart'].includes(c.id)&&typeof c.label==='string'&&c.label.length<200))throw Error('Invalid dialogue.');
+    }else if(g.dialogue!==null)throw Error('Unexpected dialogue.');
+    if(g.mode==='ended'?!['signal','light','home'].includes(g.ending):g.ending!==null)throw Error('Invalid ending.');
+    if(!IT.verifyLedger(g.ledger))throw Error('Event checksum mismatch.');
+    return g;
+  }
+  IT.saveGame=g=>{validate(g);const envelope={format:'IN-TIME',version:1,state:g,checksum:checksum(g)};const raw=JSON.stringify(envelope);if(raw.length>4_000_000)throw Error('Save exceeds 4 MB.');return raw;};
+  IT.loadGame=raw=>{
+    if(typeof raw!=='string'||raw.length>4_000_000)throw Error('Save is too large.');let e;try{e=JSON.parse(raw);}catch{throw Error('This is not a valid save file.');}
+    if(!e||e.format!=='IN-TIME'||e.version!==1)throw Error('Unsupported save format or version.');
+    if(checksum(e.state)!==e.checksum)throw Error('Save checksum mismatch.');return validate(e.state);
+  };
+  IT.checksum=checksum;
+})();
+
+
+/* FILE: src/view/math.js */
+/* Small column-major camera math. No third-party graphics dependency. */
+(() => {
+ 'use strict';const I=globalThis.IT;
+ const norm=a=>{const d=Math.hypot(...a)||1;return a.map(v=>v/d);};
+ const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+ const dot=(a,b)=>a.reduce((v,x,i)=>v+x*b[i],0);
+ class Camera {
+  set(target,span,aspect){
+   this.target=target;this.span=span;this.aspect=aspect;
+   this.back=norm([.75,1.18,.85]);this.right=norm(cross([0,1,0],this.back));this.up=cross(this.back,this.right);
+   const t=[target.x,target.y,target.z],r=this.right,u=this.up,b=this.back;
+   this.matrix=new Float32Array([r[0]/(span*aspect),u[0]/span,-b[0]/120,0,r[1]/(span*aspect),u[1]/span,-b[1]/120,0,r[2]/(span*aspect),u[2]/span,-b[2]/120,0,-dot(r,t)/(span*aspect),-dot(u,t)/span,dot(b,t)/120,1]);
+  }
+  project(x,y,z,w,h){const a=[x-this.target.x,y-this.target.y,z-this.target.z];return {x:(dot(a,this.right)/(this.span*this.aspect)+1)*w/2,y:(1-dot(a,this.up)/this.span)*h/2};}
+  ground(x,y,w,h){
+   const dx=(x/w*2-1)*this.span*this.aspect,dy=(1-y/h*2)*this.span;
+   const p=[this.target.x+this.right[0]*dx+this.up[0]*dy,this.target.y+this.right[1]*dx+this.up[1]*dy,this.target.z+this.right[2]*dx+this.up[2]*dy];
+   const k=-p[1]/this.back[1];return {x:p[0]+k*this.back[0],z:p[2]+k*this.back[2]};
+  }
+ }
+ I.Camera=Camera;
+})();
+
+
+/* FILE: src/view/renderer.js */
+/* Original lightweight WebGL renderer: batched procedural meshes, directional
+ * lighting, fog and screen-space glows. All geometry is included in the source.
+ * Decorative animation never changes simulation state or consumes its RNG. */
+(() => {
+ 'use strict';const I=globalThis.IT;
+ const C={ground:[.13,.19,.21],tile:[.19,.25,.26],wall:[.28,.34,.35],roof:[.18,.24,.25],gold:[.82,.57,.29],cyan:[.35,.86,.81],ink:[.06,.11,.14],white:[.86,.84,.74]};
+ class Mesh {
+  constructor(){this.data=[];this.faces=[];}
+  tri(a,b,c,color,emission=0){
+   const u=b.map((v,i)=>v-a[i]),v=c.map((n,i)=>n-a[i]);let n=[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];const l=Math.hypot(...n)||1;n=n.map(x=>x/l);
+   this.faces.push({points:[a,b,c],normal:n,color,emission});
+   for(const p of [a,b,c])this.data.push(...p,...n,...color,emission);
+  }
+  quad(a,b,c,d,col,e=0){this.tri(a,b,c,col,e);this.tri(a,c,d,col,e);}
+  box(x,y,z,w,h,d,col,e=0,angle=0){
+   const pts=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(p=>{const px=p[0]*w/2,pz=p[2]*d/2;return [x+px*Math.cos(angle)+pz*Math.sin(angle),y+p[1]*h/2,z-px*Math.sin(angle)+pz*Math.cos(angle)];});
+   for(const face of [[0,3,2,1],[4,5,6,7],[0,4,7,3],[1,2,6,5],[3,7,6,2],[0,1,5,4]])this.quad(...face.map(n=>pts[n]),col,e);
+  }
+  cylinder(x,y,z,r,h,col,e=0,sides=16,topR=r){
+   for(let i=0;i<sides;i++){const a=i/sides*Math.PI*2,b=(i+1)/sides*Math.PI*2;
+    const p=[x+Math.sin(a)*r,y,z+Math.cos(a)*r],q=[x+Math.sin(b)*r,y,z+Math.cos(b)*r],u=[x+Math.sin(a)*topR,y+h,z+Math.cos(a)*topR],v=[x+Math.sin(b)*topR,y+h,z+Math.cos(b)*topR];
+    this.quad(p,q,v,u,col,e);this.tri([x,y+h,z],u,v,col,e);this.tri([x,y,z],q,p,col,e);
+   }
+  }
+  ring(x,y,z,r,thick,col,e=0,sides=40){
+   for(let i=0;i<sides;i++){const a=i/sides*Math.PI*2,b=(i+1)/sides*Math.PI*2;
+    this.quad([x+Math.cos(a)*r,y,z+Math.sin(a)*r],[x+Math.cos(a)*(r-thick),y,z+Math.sin(a)*(r-thick)],[x+Math.cos(b)*(r-thick),y,z+Math.sin(b)*(r-thick)],[x+Math.cos(b)*r,y,z+Math.sin(b)*r],col,e);
+   }
+  }
+  diamond(x,y,z,r,col,e=0){
+   const p=[[x-r,y,z],[x,y,z+r],[x+r,y,z],[x,y,z-r]];
+   for(let j=0;j<4;j++){this.tri(p[j],p[(j+1)%4],[x,y+r*1.6,z],col,e);this.tri(p[(j+1)%4],p[j],[x,y-r*1.6,z],col,e);}
+  }
+ }
+ const VS=`attribute vec3 aPosition;attribute vec3 aNormal;attribute vec3 aColor;attribute float aEmission;uniform mat4 uMatrix;varying vec3 vNormal;varying vec3 vColor;varying vec3 vWorld;varying float vEmission;void main(){vNormal=aNormal;vColor=aColor;vWorld=aPosition;vEmission=aEmission;gl_Position=uMatrix*vec4(aPosition,1.0);}`;
+ const FS=`precision mediump float;varying vec3 vNormal;varying vec3 vColor;varying vec3 vWorld;varying float vEmission;uniform vec3 uTarget;uniform float uAwake;void main(){vec3 n=normalize(vNormal);float d=max(dot(n,normalize(vec3(-.45,1.,.25))),0.);float rim=max(dot(n,normalize(vec3(.8,.45,-.75))),0.);vec3 light=vec3(.33,.43,.48)+d*vec3(.69,.65,.53)+rim*vec3(.07,.22,.25);vec3 col=vColor*light+vColor*vEmission*1.15;float mist=clamp(length(vWorld.xz-uTarget.xz)/125.,0.,.45);col=mix(col,vec3(.055,.115,.145),mist);col+=vec3(.06,.035,.008)*uAwake;gl_FragColor=vec4(pow(max(col,vec3(0.)),vec3(.88)),1.);}`;
+ class Renderer {
+  constructor(canvas,overlay){
+   this.canvas=canvas;this.overlay=overlay;this.ctx=overlay.getContext('2d');this.gl=canvas.getContext('webgl',{alpha:false,antialias:true,powerPreference:'high-performance'});
+   this.cpu=!this.gl;
+   this.camera=new I.Camera();this.target={x:0,y:0,z:1};this.width=1;this.height=1;this.low=false;this.lamps=[];this.zoom=17;
+   if(this.cpu){this.software=canvas.getContext('2d',{alpha:false});if(!this.software)throw Error('Neither WebGL nor Canvas 2D is available.');this.staticMesh=this.buildWorld();this.frame=0;return;}
+   const gl=this.gl;
+   const shader=(type,source)=>{const s=gl.createShader(type);gl.shaderSource(s,source);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw Error(gl.getShaderInfoLog(s));return s;};
+   const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,VS));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw Error(gl.getProgramInfoLog(p));this.program=p;gl.useProgram(p);
+   this.attributes=[['aPosition',3,0],['aNormal',3,12],['aColor',3,24],['aEmission',1,36]].map(([name,size,offset])=>({loc:gl.getAttribLocation(p,name),size,offset}));
+   this.matrixLoc=gl.getUniformLocation(p,'uMatrix');this.targetLoc=gl.getUniformLocation(p,'uTarget');this.awakeLoc=gl.getUniformLocation(p,'uAwake');
+   this.staticBuffer=gl.createBuffer();this.dynamicBuffer=gl.createBuffer();const world=this.buildWorld();this.staticCount=world.data.length/10;gl.bindBuffer(gl.ARRAY_BUFFER,this.staticBuffer);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(world.data),gl.STATIC_DRAW);
+   gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.disable(gl.CULL_FACE);this.frame=0;
+   canvas.addEventListener('webglcontextlost',e=>{e.preventDefault();this.lost=true;document.dispatchEvent(new CustomEvent('intime-render-lost'));});
+  }
+  buildWorld(){
+   const m=new Mesh();
+   // Island-like district plinth, roads, paving and reflective canal strips.
+   m.box(0,-2.2,-1,95,1,88,[.045,.10,.13]);m.box(0,-.65,-1.5,66,1.15,54,[.12,.17,.19]);
+   m.box(0,-.02,-1.5,64,.12,51,C.ground);
+   for(let x=-31;x<=31;x+=2)for(let z=-26;z<=23;z+=2){const v=((x*13+z*7)%11)/500;m.quad([x-.97,.065,z-.97],[x-.97,.065,z+.97],[x+.97,.065,z+.97],[x+.97,.065,z-.97],[.15+v,.215+v,.225+v]);}
+   for(const x of [-6.8,6.8])m.box(x,.08,8,.12,.04,30,C.gold,.35);
+   for(const z of [5.2,20.5])m.box(0,.08,z,62,.04,.10,C.gold,.35);
+   for(let x=-29;x<31;x+=2)m.box(x,.09,18,.55,.025,.05,[.43,.49,.46]);
+   // Long entry avenue with inlaid concentric time marks.
+   for(const r of [1.8,2.1,3,4.4])m.ring(0,.095,18,r,.035,C.gold,.3);
+   for(const w of I.WORLD.walls){
+    m.box(w.x,w.h/2,w.z,w.w,w.h,w.d,C.wall);
+    m.box(w.x,w.h+.08,w.z,w.w+.15,.17,w.d+.15,[.43,.43,.38]);
+    if(w.w>3)m.box(w.x,.18,w.z,w.w,.08,w.d+.05,C.gold,.4);
+    if(w.d>3)m.box(w.x,.18,w.z,w.w+.05,.08,w.d,C.gold,.4);
+   }
+   // Interiors read as three distinct temples, not empty boxes.
+   for(const [x,z,w,d] of [[-18,-7,18,20],[18,-7,18,20],[0,-14,12,18]]){
+    m.box(x,.08,z,w,.05,d,[.115,.18,.20]);
+    for(let i=0;i<4;i++)m.ring(x,.115,z,2.2+i*.8,.035,C.gold,.3);
+   }
+   for(const gate of I.WORLD.gates){
+    for(const dx of [-2.5,2.5]){m.box(gate.x+dx,1.7,gate.z,.85,3.4,1.25,C.wall);m.box(gate.x+dx,3.5,gate.z,1.1,.22,1.4,C.gold);}
+    m.box(gate.x,3.8,gate.z,6,.55,1.1,C.roof);m.box(gate.x,4.12,gate.z,5,.08,.85,C.gold,.3);
+   }
+   for(const n of I.WORLD.nodes.filter(n=>n.type==='terminal')){
+    m.cylinder(n.x,.10,n.z,2,.2,C.ink);m.ring(n.x,.32,n.z,1.85,.06,C.gold,.8);
+    m.cylinder(n.x,.32,n.z,1,.28,C.wall,0,8);m.cylinder(n.x,.6,n.z,.54,.9,C.roof,0,6,.36);
+    m.box(n.x,1.58,n.z,1.4,.1,.85,C.gold,.2);
+    for(const dx of [-2.7,2.7])m.cylinder(n.x+dx,.1,n.z,0.35,3.8,C.wall,0,10,.25);
+   }
+   // North chronometer crown: twelve fins around a fragmented clock.
+   for(let k=0;k<12;k++){const a=k*Math.PI/6;m.box(Math.cos(a)*4,6.0,-18+Math.sin(a)*2.4,.2,1,.45,C.gold,.6,a);}
+   m.ring(0,6,-18,3.8,.07,C.gold,.7);m.ring(0,6.3,-18,3.3,.06,C.cyan,.3);
+   // Dry fountain and low planters.
+   m.cylinder(0,.15,7,1.7,.62,C.wall);m.cylinder(0,.78,7,1.35,.03,[.055,.19,.22],.25);
+   m.cylinder(0,.8,7,.2,1.1,C.gold);m.diamond(0,2.2,7,.45,C.cyan,.65);
+   for(const [x,z] of [[-30,20],[30,20],[-6,17],[6,17],[-30,-4],[30,-4]]){
+    m.box(x,.3,z,1.2,.6,1.2,C.roof);m.cylinder(x,.6,z,.17,1.4,[.25,.23,.19],0,7);
+    m.cylinder(x,1.1,z,.85,1.5,[.12,.30,.27],0,7,.1);
+   }
+   // Building silhouettes are outside the navigable district; no invisible walls.
+   for(let side=0;side<2;side++)for(let k=0;k<8;k++){
+    const x=side?36:-36,z=-24+k*6,h=5+((k*7+side*3)%5)*1.25;
+    this.building(m,x,z,6,h,5,k+side*8);
+   }
+   for(let k=0;k<10;k++)this.building(m,-30+k*6.7,-31,5.7,5+(k*7%6),5,k+19);
+   for(const [x,z] of [[-26,21],[-12,20],[12,20],[27,21],[-30,7],[30,7],[-6,-2],[6,-2],[-30,-15],[30,-15]]){
+    m.cylinder(x,0,z,.12,4,C.ink,0,8);m.box(x,4.15,z,.65,.18,.65,C.gold);m.box(x,3.83,z,.4,.55,.4,C.gold,.8);this.lamps.push({x,y:3.9,z});
+   }
+   // Suspended brass cables and bridge ribs establish the skyline.
+   for(let k=0;k<7;k++){m.box(-34+k*11,5.7,23.2,.22,1.4,.3,C.roof);}
+   m.box(0,6.5,23.2,69,.12,.12,C.gold);
+   return m;
+  }
+  building(m,x,z,w,h,d,index){
+   m.box(x,h/2,z,w,h,d,C.roof);m.box(x,h+.16,z,w+.3,.32,d+.3,[.29,.33,.32]);m.box(x,.3,z,w+.3,.6,d+.3,C.wall);
+   for(const dx of [-w/2+.22,w/2-.22])m.box(x+dx,h/2,z,.35,h,d+.1,[.25,.30,.31]);
+   for(let y=1.5;y<h-.4;y+=1.65)for(let j=-1;j<=1;j++){
+    const col=(Math.round(y)+j+index)%4===0?C.ink:[.47,.39,.24];
+    m.box(x+j*w/4,y,z+d/2+.02,.65,.85,.04,col,col===C.ink?0:.75);
+    const side=x>0?-1:1;m.box(x+side*(w/2+.02),y,z+j*d/4,.04,.85,.65,col,col===C.ink?0:.6);
+   }
+   m.cylinder(x,h+.3,z,.5,.7,C.wall,0,8,.32);
+  }
+  person(m,p,col,phase=0,echo=false){
+   const {x,z}=p,a=p.angle||0;const swing=Math.sin(phase)*.16;
+   m.cylinder(x,.075,z,.6,.025,[.055,.085,.10],0,16);
+   const c=echo?C.cyan:col;
+   for(const side of [-1,1]){
+    const dx=side*.16*Math.cos(a),dz=-side*.16*Math.sin(a);m.box(x+dx,.38,z+dz, .17,.64,.2,echo?C.cyan:C.ink,echo?.25:0,a);
+   }
+   m.cylinder(x,.52,z,.5,.83,c,echo?.4:0,8,.25);m.cylinder(x,1.3,z,.26,.39,c,echo?.6:0,9,.22);
+   m.box(x+Math.sin(a)*.24,1.47,z+Math.cos(a)*.24,.21,.17,.07,echo?[.7,1,1]:[.20,.19,.16],echo?.5:0,a);
+   if(!echo){m.box(x-Math.sin(a)*.23,1.08,z-Math.cos(a)*.23,.19,.6,.11,C.gold,.1,a);m.box(x+Math.cos(a)*.43,.88+swing,z-Math.sin(a)*.43,.15,.54,.17,c,0,a);}
+   if(echo)m.ring(x,.09,z,.78,.035,C.cyan,.6);
+  }
+  drawBuffer(buffer,data,count){const gl=this.gl;gl.bindBuffer(gl.ARRAY_BUFFER,buffer);if(data)gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(data),gl.DYNAMIC_DRAW);for(const a of this.attributes){gl.enableVertexAttribArray(a.loc);gl.vertexAttribPointer(a.loc,a.size,gl.FLOAT,false,40,a.offset);}gl.drawArrays(gl.TRIANGLES,0,count);}
+  resize(){
+   const w=this.canvas.clientWidth,h=this.canvas.clientHeight,dpr=Math.min(devicePixelRatio||1,this.low?1:1.65);
+   if(w!==this.width||h!==this.height||this.dpr!==dpr){this.width=w;this.height=h;this.dpr=dpr;this.canvas.width=Math.round(w*dpr);this.canvas.height=Math.round(h*dpr);this.overlay.width=Math.round(w*dpr);this.overlay.height=Math.round(h*dpr);this.ctx.setTransform(dpr,0,0,dpr,0,0);}
+  }
+  render(g,{title=false,now=0,reduced=false,target=null}={}){
+   if(this.lost)return;this.resize();const gl=this.gl,w=this.width,h=this.height,t=now/1000;
+   const dest=title?{x:0,y:0,z:-1}:{x:g.player.x*.9,y:0,z:g.player.z-2};
+   const ease=title?.018:.085;for(const k of ['x','y','z'])this.target[k]+=(dest[k]-this.target[k])*ease;
+   const span=title?30:this.zoom*(w<h?1.03:1);this.camera.set(this.target,span,w/h);
+   if(gl){gl.viewport(0,0,this.canvas.width,this.canvas.height);gl.clearColor(.032,.075,.098,1);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);gl.useProgram(this.program);
+   gl.uniformMatrix4fv(this.matrixLoc,false,this.camera.matrix);gl.uniform3f(this.targetLoc,this.target.x,this.target.y,this.target.z);gl.uniform1f(this.awakeLoc,g.mode==='ended'&&g.ending!=='signal'?1:0);
+   this.drawBuffer(this.staticBuffer,null,this.staticCount);}
+   const m=new Mesh();
+   for(const gate of I.WORLD.gates){const open=I.gateOpen(g,gate),col=open?C.cyan:C.gold;for(let dx=-1.65;dx<2;dx+=.55)m.box(gate.x+dx,open?3.6:1.55,gate.z,.14,open?.25:2.9,.18,col,.3);m.diamond(gate.x,4.7,gate.z,.2,col,.8);}
+   for(const p of I.WORLD.plates){const on=I.plateActive(g,p),gate=I.WORLD.gates.find(x=>x.id===p.gate),enabled=g.stage===gate.stage,col=on?C.cyan:enabled?C.gold:[.31,.38,.38];
+    m.cylinder(p.x,.12,p.z,p.r,.1,C.ink);m.ring(p.x,.235,p.z,p.r,.10,col,enabled?.6:0);m.ring(p.x,.24,p.z,p.r*.68,.04,col,enabled?.6:0);m.diamond(p.x,.31,p.z,.15,col,enabled?.7:0);
+    if(on){const mx=(p.x+gate.x)/2,mz=(p.z+gate.z)/2,len=Math.hypot(p.x-gate.x,p.z-gate.z);m.box(mx,.145,mz,.035,.01,len,C.cyan,.6,Math.atan2(gate.x-p.x,gate.z-p.z));}
+   }
+   for(const n of I.WORLD.nodes){
+    if(n.type==='npc')this.person(m,{...n,angle:n.id==='mira'?Math.PI*.7:0},n.id==='mira'?[.33,.55,.51]:n.id==='rowan'?[.53,.38,.25]:[.37,.42,.59],0);
+    if(n.type==='memory'&&!g.facts.fragments.includes(n.id)){const bob=reduced?0:Math.sin(t*1.6+n.x)*.13;m.diamond(n.x,1.1+bob,n.z,.29,C.cyan,.9);m.ring(n.x,.15,n.z,.7,.04,C.cyan,.5);}
+    if(n.type==='terminal'){const on=g.facts[n.id],col=on?C.cyan:C.gold;m.diamond(n.x,2.35+(reduced?0:Math.sin(t)*.08),n.z,.42,col,.7);m.ring(n.x,.34,n.z,1.48,.05,col,.8);}
+   }
+   for(const e of g.echoes){
+    this.person(m,e.pos,C.cyan,e.holding?0:g.loopTick*.25,true);
+    const end=e.path.at(-1);m.ring(end[1],.135,end[2],.45,.02,C.cyan,.35);
+    for(let k=3;k<Math.min(e.path.length,420);k+=8){const p=e.path[k];m.box(p[1],.12,p[2],.05,.025,.05,C.cyan,.3);}
+   }
+   this.person(m,g.player,[.73,.68,.52],g.loopTick*.22,false);
+   for(const d of I.dronePositions(g)){
+    const frozen=g.totalTick<g.pulseUntil,col=frozen?C.cyan:[.92,.35,.26];m.diamond(d.x,2.2+(reduced?0:Math.sin(t*2)*.1),d.z,.36,col,.65);m.ring(d.x,.13,d.z,2.9,.035,col,.25);m.ring(d.x,2.2,d.z,.75,.04,col,.7);
+   }
+   if(target)m.ring(target.x,.2,target.z,.5,.04,C.gold,.6);
+   if(g.totalTick<g.pulseUntil){const r=(g.totalTick%180)/180*5+1;m.ring(g.player.x,.16,g.player.z,r,.035,C.cyan,.65);}
+   if(gl)this.drawBuffer(this.dynamicBuffer,m.data,m.data.length/10);else this.drawSoftware(m);
+   this.drawOverlay(g,t,{title,reduced});this.frame++;
+  }
+  drawSoftware(dynamic){
+   // Compatibility path: the same 3D triangles, projected and depth-sorted on CPU.
+   // No external graphics adapter and no fake WebGL-success claim.
+   const ctx=this.software,w=this.width,h=this.height,b=this.camera.back;
+   ctx.setTransform(this.dpr,0,0,this.dpr,0,0);ctx.fillStyle='#081c24';ctx.fillRect(0,0,w,h);
+   const faces=[];
+   for(const f of [...this.staticMesh.faces,...dynamic.faces]){
+    const facing=f.normal[0]*b[0]+f.normal[1]*b[1]+f.normal[2]*b[2];if(facing<-.001)continue;
+    const pts=f.points.map(p=>this.project(...p));if(pts.every(p=>p.x<0)||pts.every(p=>p.x>w)||pts.every(p=>p.y<0)||pts.every(p=>p.y>h))continue;
+    if(!f.css){const d=Math.max(0,(-.45*f.normal[0]+f.normal[1]+.25*f.normal[2])/1.125),r=Math.max(0,(.8*f.normal[0]+.45*f.normal[1]-.75*f.normal[2])/1.187);const col=f.color.map((v,i)=>Math.round(255*Math.pow(Math.min(1,v*([.33,.43,.48][i]+d*[.69,.65,.53][i]+r*[.07,.22,.25][i])+v*f.emission*1.15),.88)));f.css='rgb('+col.join(',')+')';}
+    const depth=f.points.reduce((s,p)=>s+p[0]*b[0]+p[1]*b[1]+p[2]*b[2],0)/3;
+    const maxY=Math.max(...f.points.map(p=>p[1]));faces.push({pts,depth,css:f.css,ground:maxY<=.16,height:maxY});
+   }
+   faces.sort((a,b)=>a.ground!==b.ground?(a.ground?-1:1):(a.ground?a.height-b.height||a.depth-b.depth:a.depth-b.depth));
+   for(const f of faces){ctx.fillStyle=f.css;ctx.beginPath();ctx.moveTo(f.pts[0].x,f.pts[0].y);ctx.lineTo(f.pts[1].x,f.pts[1].y);ctx.lineTo(f.pts[2].x,f.pts[2].y);ctx.closePath();ctx.fill();}
+  }
+  project(x,y,z){return this.camera.project(x,y,z,this.width,this.height);}
+  ground(x,y){return this.camera.ground(x,y,this.width,this.height);}
+  drawOverlay(g,t,{title,reduced}){
+   const ctx=this.ctx,w=this.width,h=this.height;ctx.clearRect(0,0,w,h);ctx.globalCompositeOperation='screen';
+   const glow=(x,y,z,r,col)=>{const p=this.project(x,y,z);if(p.x<-100||p.x>w+100||p.y<-100||p.y>h+100)return;const gr=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,r);gr.addColorStop(0,col);gr.addColorStop(1,'transparent');ctx.fillStyle=gr;ctx.fillRect(p.x-r,p.y-r,r*2,r*2);};
+   for(const l of this.lamps)glow(l.x,l.y,l.z,this.low?20:36,'rgba(240,162,71,.15)');
+   glow(g.player.x,1,g.player.z,40,'rgba(255,223,144,.12)');
+   for(const e of g.echoes)glow(e.pos.x,1,e.pos.z,45,'rgba(86,238,213,.16)');
+   for(const n of I.WORLD.nodes.filter(n=>n.type==='terminal'))glow(n.x,2.3,n.z,45,g.facts[n.id]?'rgba(81,222,200,.19)':'rgba(235,160,78,.16)');
+   ctx.globalCompositeOperation='source-over';
+   if(!reduced){ctx.strokeStyle='rgba(170,209,211,.15)';ctx.lineWidth=.65;ctx.beginPath();const count=this.low?50:130;for(let j=0;j<count;j++){const x=((j*197.83+t*38)% (w+100))-50,y=((j*123.7+t*(180+j%50))%(h+80))-40;ctx.moveTo(x,y);ctx.lineTo(x-3.7,y+12);}ctx.stroke();}
+   if(title)return;
+   // Labels are projected from genuine world positions. No hidden quest bypass.
+   ctx.textAlign='center';ctx.font='600 10px system-ui';
+   for(const p of I.WORLD.plates.filter(p=>I.WORLD.gates.find(x=>x.id===p.gate).stage===g.stage)){
+    const q=this.project(p.x,0,p.z);ctx.fillStyle=I.plateActive(g,p)?'#a0f4dc':'#f0cd8b';ctx.fillText('PLATE '+p.label,q.x,q.y+26);
+   }
+   const n=I.nearestNode(g);
+   if(n){const p=this.project(n.x,2.5,n.z);ctx.font='500 11px system-ui';const label=n.label;const tw=ctx.measureText(label).width;ctx.fillStyle='rgba(7,20,26,.85)';ctx.fillRect(p.x-tw/2-12,p.y-19,tw+24,26);ctx.strokeStyle='rgba(199,167,113,.4)';ctx.strokeRect(p.x-tw/2-12,p.y-19,tw+24,26);ctx.fillStyle='#ebdabb';ctx.fillText(label,p.x,p.y-2);}
+  }
+ }
+ I.Renderer=Renderer;
+})();
+
+
+/* FILE: src/view/audio.js */
+/* Optional, quiet, synthesized audio. No fetched audio assets or microphone. */
+(() => {
+ 'use strict';const I=globalThis.IT;
+ class Sound {
+  constructor(){this.enabled=false;this.context=null;this.master=null;}
+  async toggle(){
+   if(!this.context){const A=globalThis.AudioContext||globalThis.webkitAudioContext;if(!A)return false;this.context=new A();this.master=this.context.createGain();this.master.gain.value=0;this.master.connect(this.context.destination);
+    for(const f of [55,110,164.81]){const o=this.context.createOscillator(),gain=this.context.createGain();o.type='sine';o.frequency.value=f;gain.gain.value=.027;o.connect(gain);gain.connect(this.master);o.start();}
+   }
+   await this.context.resume();this.enabled=!this.enabled;this.master.gain.setTargetAtTime(this.enabled?.65:0,this.context.currentTime,.2);return this.enabled;
+  }
+  tone(kind='step'){
+   if(!this.enabled||!this.context)return;const c=this.context,t=c.currentTime;
+   const notes={step:[95,.027,.08],echo:[329.63,.12,.65],pulse:[110,.13,.7],anchor:[523.25,.09,1.4],memory:[659.25,.07,.75],click:[220,.045,.11],fail:[65,.1,.9]};
+   const [f,v,d]=notes[kind]||notes.click,o=c.createOscillator(),a=c.createGain();o.type=kind==='pulse'?'triangle':'sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(kind==='echo'?f*2:f*.8,t+d);a.gain.setValueAtTime(.0001,t);a.gain.exponentialRampToValueAtTime(v,t+.012);a.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(a);a.connect(this.master);o.start();o.stop(t+d+.05);o.onended=()=>{o.disconnect();a.disconnect();};
+  }
+ }
+ I.Sound=Sound;
+})();
+
+
+/* FILE: src/main.js */
+/* Browser adapter. Input -> fixed simulation -> view. No network calls.
+ * Accessible DOM text is assigned with textContent. Canvas contains the 3D world.
+ * The ?qa=1 interface accelerates normal input only; it cannot skip gate checks. */
+(() => {
+ 'use strict';const I=globalThis.IT,$=id=>document.getElementById(id),KEY='intime.wayfarer.save.v1',SETTINGS='intime.wayfarer.settings.v1';
+ let game=I.createGame(2100),started=false,modal=null,modalRestore=null,lastMode='',lastNotice=-1,lastDialogue='',lastLedger=0,storageOK=true,saved=null,path=[],pointer={x:0,z:0},keys=new Set(),lastFocus=null;
+ let preferences={reduced:matchMedia('(prefers-reduced-motion: reduce)').matches,low:false};
+ try{const p=JSON.parse(localStorage.getItem(SETTINGS)||'null');if(p&&typeof p.reduced==='boolean'&&typeof p.low==='boolean')preferences=p;}catch{}
+ const sound=new I.Sound();let view;
+ try{view=new I.Renderer($('world'),$('atmosphere'));}catch(e){$('render-error').hidden=false;$('render-error-text').textContent=e.message;return;}
+ function setPreferences(){view.low=preferences.low;document.body.classList.toggle('low-effects',preferences.reduced);try{localStorage.setItem(SETTINGS,JSON.stringify(preferences));}catch{}}
+ setPreferences();
+ let toastTimer;
+ function toast(text){$('toast').textContent=text;$('toast').classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').classList.remove('show'),5000);}
+ try{const raw=localStorage.getItem(KEY);if(raw){try{saved=I.loadGame(raw);$('continue').hidden=false;}catch{toast('The saved timeline could not be read. Start a new timeline or load a backup.');}}}catch{storageOK=false;toast('Automatic saves are unavailable in this preview. Export a save from the pause menu to keep your timeline.');}
+ function persist(){
+  if(!started)return;try{localStorage.setItem(KEY,I.saveGame(game));storageOK=true;}catch{if(storageOK)toast('Browser storage is unavailable. Use Export save in the pause menu.');storageOK=false;}
+ }
+ function clearInput(){keys.clear();pointer={x:0,z:0};path=[];$('stick').style.transform='';}
+ function start(resume=false){
+  closeModal(true);game=resume&&saved?I.loadGame(I.saveGame(saved)):I.createGame(2100);
+  if(game.mode==='paused')game.mode='playing';started=true;lastMode='';lastNotice=-1;lastDialogue='';lastLedger=game.ledger.length;path=[];
+  $('title-screen').hidden=true;$('hud').hidden=false;document.body.classList.remove('session-paused');sound.tone('click');persist();updateUI();
+ }
+ function saveDownload(){try{const blob=new Blob([I.saveGame(game)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='IN-TIME-save.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);toast('Save exported. Keep it with your game file.');}catch(e){toast(e.message);}}
+ function importSave(){$('save-input').value='';$('save-input').click();}
+ $('save-input').addEventListener('change',async e=>{
+  const file=e.target.files[0];if(!file)return;if(file.size>4_000_000){toast('That save exceeds the 4 MB limit.');return;}
+  try{const loaded=I.loadGame(await file.text());saved=loaded;$('continue').hidden=false;start(true);toast('Timeline loaded. All echoes and anchored memories restored.');}catch(err){toast('Could not load: '+err.message);}
+ });
+ $('begin').onclick=()=>start(false);$('continue').onclick=()=>start(true);$('title-import').onclick=importSave;
+ for(const b of document.querySelectorAll('.sound-toggle'))b.onclick=async()=>{try{const on=await sound.toggle();for(const el of document.querySelectorAll('.sound-toggle')){el.textContent=on?'Sound on':'Sound off';el.setAttribute('aria-pressed',String(on));}}catch{toast('Audio is not available in this browser. The game is fully playable without it.');}};
+ function button(label,fn,cls=''){const b=document.createElement('button');b.textContent=label;b.className=cls;b.onclick=fn;return b;}
+ function beginModal(kind,kicker,title){
+  if(!modal){lastFocus=document.activeElement;modalRestore=game.mode;if(started&&game.mode==='playing')game.mode='paused';}
+  modal=kind;clearInput();$('modal-kicker').textContent=kicker;$('modal-title').textContent=title;$('modal-content').replaceChildren();$('modal-backdrop').hidden=false;$('modal-close').hidden=['failed','ended'].includes(kind);document.body.classList.toggle('session-paused',started);$('modal-close').focus();
+ }
+ function closeModal(force=false){
+  if(!modal)return;if(!force&&['failed','ended'].includes(modal))return;
+  if(started&&game.mode==='paused'&&modalRestore==='playing')game.mode='playing';modal=null;modalRestore=null;$('modal-backdrop').hidden=true;document.body.classList.remove('session-paused');clearInput();if(lastFocus?.isConnected)lastFocus.focus();
+ }
+ $('modal-close').onclick=()=>closeModal();
+ function settings(parent){
+  const row=document.createElement('div');row.className='setting-row';
+  for(const [id,label] of [['reduced','Reduced motion'],['low','Low-effects mode']]){const l=document.createElement('label'),input=document.createElement('input');input.type='checkbox';input.checked=preferences[id];input.onchange=()=>{preferences[id]=input.checked;setPreferences();};l.append(input,document.createTextNode(label));row.append(l);}
+  row.append(button(sound.enabled?'Sound on':'Sound off',async e=>{try{await sound.toggle();e.target.textContent=sound.enabled?'Sound on':'Sound off';}catch{toast('Audio unavailable.');}},'quiet-button'));
+  parent.append(row);
+ }
+ function pause(){
+  if(!started||['failed','ended'].includes(game.mode))return;if(modal){closeModal();return;}beginModal('pause','THE CITY CAN WAIT','A moment outside time.');
+  const p=document.createElement('p');p.textContent='Your timeline is paused. Checkpoints and memories survive a retry. A new timeline starts the entire night again.';$('modal-content').append(p);
+  const actions=document.createElement('div');actions.className='menu-actions';
+  actions.append(button('Return to the city',()=>closeModal(),'wide warm'),button('District map',map),button('How to play',help),button('Export save',saveDownload),button('Load a save',importSave),button('Retry this checkpoint',()=>{closeModal(true);I.retry(game);persist();updateUI();}),button('Start a new timeline',confirmNew),button('Save & return to title',returnTitle,'wide subtle'));
+  $('modal-content').append(actions);settings($('modal-content'));persist();
+ }
+ function confirmNew(){beginModal('confirm','NEW TIMELINE','Begin again?');const p=document.createElement('p');p.textContent='This replaces the current local save. Export your timeline first to keep it. All landmarks, echoes and memories reset.';$('modal-content').append(p);const a=document.createElement('div');a.className='modal-actions';a.append(button('Start new timeline',()=>start(false)),button('Export current save',saveDownload),button('Keep this timeline',()=>closeModal()));$('modal-content').append(a);}
+ function returnTitle(){persist();saved=I.loadGame(I.saveGame(game));if(saved.mode==='paused')saved.mode='playing';closeModal(true);started=false;$('hud').hidden=true;$('dialogue-panel').hidden=true;$('title-screen').hidden=false;$('continue').hidden=false;document.body.classList.remove('in-dialogue');clearInput();}
+ function help(){
+  beginModal('help','FIELD GUIDE','Your past is a partner.');
+  $('modal-content').innerHTML='<div class="guide-grid"><div><kbd>WASD</kbd><h3>Walk into the world.</h3><p>Use WASD or arrows. Hold Shift to run. Click the ground to walk there. On touch screens, use the joystick. Golden circles are pressure plates.</p></div><div><kbd>Q</kbd><h3>Leave an echo.</h3><p>Walk to a plate. Stop in its centre. Press Q or ECHO to rewind to your checkpoint. Your echo repeats the route, then stays exactly where you stopped.</p></div><div><kbd>II + III</kbd><h3>Two pasts. One present.</h3><p>Record a second plate, then rewind again. Both echoes now replay together. Wait for them to arrive, then pass the open gate. A third echo replaces the oldest.</p></div><div><kbd>E / SPACE</kbd><h3>Keep what matters.</h3><p>E interacts with people, memories and terminals. Space pulses the anomalies still. Restore landmarks to anchor progress. The six-minute city clock never rewinds, but menus and dialogue pause it.</p></div></div><p><strong>Stuck?</strong> Use the district map. If a gate is closed, check that its plates have turned mint. Echoes may still be walking. A retry preserves completed landmarks. Three optional memories change the restored-city epilogue.</p>';
+  const a=document.createElement('div');a.className='modal-actions';a.append(button(started?'Return to the city':'Back to the night',()=>closeModal()));$('modal-content').append(a);settings($('modal-content'));
+ }
+ function map(){
+  if(!started)return;beginModal('map','DISTRICT / 2100','Find the next light.');
+  const ns='http://www.w3.org/2000/svg',svg=document.createElementNS(ns,'svg');svg.classList.add('district-map');svg.setAttribute('viewBox','-35 -32 70 63');svg.setAttribute('role','img');svg.setAttribute('aria-label','District map: Relay west, Archive east, Last Light north. Plates marked I to V.');
+  function shape(type,attrs){const e=document.createElementNS(ns,type);for(const [k,v]of Object.entries(attrs))e.setAttribute(k,v);svg.append(e);return e;}
+  for(const wall of I.WORLD.walls)shape('rect',{x:wall.x-wall.w/2,y:wall.z-wall.d/2,width:wall.w,height:wall.d,fill:'#47616a'});
+  for(const gate of I.WORLD.gates)shape('rect',{x:gate.x-2,y:gate.z-.4,width:4,height:.8,fill:I.gateOpen(game,gate)?'#8cdec4':'#dda96d'});
+  for(const p of I.WORLD.plates){shape('circle',{cx:p.x,cy:p.z,r:1.4,fill:'none',stroke:I.plateActive(game,p)?'#8cdec4':'#dda96d','stroke-width':.28});const l=shape('text',{x:p.x,y:p.z+3.2,fill:'#d6c8a6','font-size':2,'text-anchor':'middle'});l.textContent=p.label;}
+  for(const n of I.WORLD.nodes.filter(x=>x.type==='terminal')){shape('circle',{cx:n.x,cy:n.z,r:.85,fill:game.facts[n.id]?'#8cdec4':'#dda96d'});const l=shape('text',{x:n.x,y:n.z-3,fill:'#e5d9ba','font-size':2.2,'text-anchor':'middle'});l.textContent=n.id.toUpperCase();}
+  for(const n of I.WORLD.nodes.filter(x=>x.type==='memory'&&!game.facts.fragments.includes(x.id)))shape('circle',{cx:n.x,cy:n.z,r:.5,fill:'#91e8dd'});
+  for(const e of game.echoes)shape('circle',{cx:e.pos.x,cy:e.pos.z,r:.8,fill:'#6fbbaa'});
+  shape('circle',{cx:game.player.x,cy:game.player.z,r:1,fill:'#fff0bf'});shape('circle',{cx:game.player.x,cy:game.player.z,r:1.8,fill:'none',stroke:'#fff0bf','stroke-width':.15});
+  $('modal-content').append(svg);const cap=document.createElement('div');cap.className='map-caption';cap.innerHTML='<span><b>GOLD</b> · pressure plates / terminals</span><span><b>MINT</b> · active / memories</span><span><b>WHITE</b> · you</span>';$('modal-content').append(cap);
+  const p=document.createElement('p');p.textContent=I.objective(game)[1]+' End each recording inside its plate. After the final rewind, wait for both echoes to arrive.';$('modal-content').append(p);
+  const a=document.createElement('div');a.className='modal-actions';a.append(button('Return to the city',()=>closeModal()),button('Read the field guide',help));$('modal-content').append(a);
+ }
+ function finishPanel(failed=false){
+  if(modal=== (failed?'failed':'ended'))return;
+  if(failed){beginModal('failed','THE TIMELINE COLLAPSED','This is not the end.');const p=document.createElement('p');p.textContent=game.remaining===0?'The six minutes are gone. Your restored landmarks and collected memories remain. Retry from the current checkpoint.':'The anomalies overwhelmed your stability. Use a pulse to pass them, or give them more space. Your anchored progress remains.';$('modal-content').append(p);const a=document.createElement('div');a.className='modal-actions';a.append(button('Retry checkpoint',()=>{closeModal(true);I.retry(game);persist();updateUI();}),button('Start new timeline',()=>start(false)),button('Return to title',returnTitle));$('modal-content').append(a);sound.tone('fail');return;}
+  const endings={light:['01 / THE LIGHT RETURNS','A city, not yet a home.','The lamps come back, one street at a time. You saved the district. Somewhere in its quiet rooms, three memories still wait to be found.'],home:['02 / WHAT STILL MATTERS','Everyone has a way home.','The city wakes with its names intact. Three voices cross the rain. You brought back the light — and remembered what it was for.'],signal:['03 / THE SIGNAL CONTINUES','Some futures must leave.','The district dims behind you. Its signal travels in your hands: a memory that can outlast its city. The road beyond the last light is open.']};
+  const [k,t,body]=endings[game.ending];beginModal('ended',k,t);const p=document.createElement('p');p.textContent=body;$('modal-content').append(p);
+  const stats=document.createElement('div');stats.className='ending-stats';for(const [v,l]of [[game.rewinds,'ECHOES LEFT'],[game.facts.fragments.length+'/3','MEMORIES'],[Math.floor(game.remaining/60)+'s','TIME REMAINING']]){const d=document.createElement('div'),b=document.createElement('strong'),s=document.createElement('span');b.textContent=v;s.textContent=l;d.append(b,s);stats.append(d);}$('modal-content').append(stats);
+  const a=document.createElement('div');a.className='modal-actions';a.append(button('Begin another timeline',()=>start(false)),button('Export this ending',saveDownload),button('Return to title',returnTitle));$('modal-content').append(a);
+ }
+ function action(which){if(!started||modal)return;clearInput();const old=game.ledger.length;
+  if(which==='echo')I.rewind(game);if(which==='pulse')I.pulse(game);if(which==='interact')I.interact(game);
+  if(game.ledger.length>old){sound.tone(which==='echo'?'echo':which==='pulse'?'pulse':game.ledger.at(-1).kind==='MEMORY_ANCHORED'?'memory':'anchor');persist();}updateUI();
+ }
+ $('title-help').onclick=help;$('help-button').onclick=help;$('map-button').onclick=map;$('pause-button').onclick=pause;
+ $('rewind-button').onclick=()=>action('echo');$('pulse-button').onclick=()=>action('pulse');$('interact-prompt').onclick=()=>action('interact');
+ $('touch-echo').onclick=()=>action('echo');$('touch-pulse').onclick=()=>action('pulse');$('touch-interact').onclick=()=>action('interact');
+ function updateUI(){
+  if(!started)return;const o=I.objective(game),c=I.activeCard(game),seconds=Math.ceil(game.remaining/60);
+  $('chapter').textContent='CHAPTER 0'+(game.stage+1)+' / 03';$('objective-name').textContent=o[0].toLowerCase().replace(/(^|\s)\S/g,x=>x.toUpperCase());$('objective-detail').textContent=o[1];
+  $('time').textContent=String(Math.floor(seconds/60)).padStart(2,'0')+':'+String(seconds%60).padStart(2,'0');document.querySelector('.clock').classList.toggle('urgent',seconds<60);
+  $('stability-value').textContent=Math.ceil(game.player.stability);$('stability-bar').style.width=game.player.stability+'%';$('memory-value').textContent=game.facts.fragments.length+' / 3';
+  $('card-roman').textContent=c.roman;$('card-name').textContent=c.name;$('card-line').textContent=c.line;
+  $('echo-count').textContent=game.echoes.length+' OF 2';for(let i=0;i<2;i++){const e=game.echoes[i],el=$('echo-slot-'+i);el.textContent=e?'E'+e.id+' · '+(e.holding?'HOLDING':'WALKING'):'EMPTY';el.classList.toggle('active',!!e);}
+  $('recording-label').textContent=game.mode==='playing'?'RECORDING · '+(game.loopTick/60).toFixed(1)+'s':'RECORDING PAUSED';
+  const cooldown=Math.max(0,Math.ceil((game.pulseReadyAt-game.totalTick)/60));$('pulse-label').textContent=cooldown?'Pulse · '+cooldown+'s':'Still the storm';$('pulse-button').disabled=!!cooldown;$('touch-pulse').disabled=!!cooldown;
+  const n=I.nearestNode(game);$('interaction').hidden=!n||game.mode!=='playing'||!!modal;if(n)$('interaction-label').textContent=n.label;
+  if(game.notice.id!==lastNotice){lastNotice=game.notice.id;if(game.notice.text)toast(game.notice.text);}
+  if(game.mode!==lastMode){lastMode=game.mode;if(game.mode!=='playing')clearInput();}
+  const inDialogue=game.mode==='dialogue'&&!modal;$('dialogue-panel').hidden=!inDialogue;document.body.classList.toggle('in-dialogue',inDialogue);
+  if(inDialogue&&JSON.stringify(game.dialogue)!==lastDialogue){lastDialogue=JSON.stringify(game.dialogue);$('speaker').textContent=game.dialogue.speaker;$('dialogue-text').textContent=game.dialogue.text;$('dialogue-choices').replaceChildren(...game.dialogue.choices.map(c=>button(c.label,()=>{I.choose(game,c.id);lastDialogue='';persist();sound.tone('click');updateUI();})));$('dialogue-choices').firstElementChild?.focus();}
+  if(game.mode==='failed'||game.mode==='ended'){persist();finishPanel(game.mode==='failed');}
+ }
+ function goTo(target){if(!started||modal||game.mode!=='playing')return false;const found=I.findPath(game,target);if(!found){toast('No clear route. A closed gate may need an echo on its plate.');return false;}path=found;return true;}
+ $('world').addEventListener('pointerdown',e=>{if(e.button&&e.button!==0)return;const r=$('world').getBoundingClientRect();goTo(view.ground(e.clientX-r.left,e.clientY-r.top));});
+ $('world').addEventListener('wheel',e=>{if(!started)return;e.preventDefault();view.zoom=Math.max(12,Math.min(26,view.zoom+Math.sign(e.deltaY)*1.3));},{passive:false});
+ window.addEventListener('keydown',e=>{
+  if(e.target instanceof HTMLInputElement)return;
+  const code=e.code;if(['ArrowUp','ArrowDown','ArrowLeft','ArrowRight','Space','Tab'].includes(code)&&started&&code!=='Tab')e.preventDefault();
+  if(code==='Escape'){if(modal)closeModal();else pause();return;}
+  if(code==='Tab'&&modal){const els=[...$('modal').querySelectorAll('button,input')].filter(x=>!x.hidden&&!x.disabled),first=els[0],last=els.at(-1);if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}return;}
+  if(e.repeat||!started||modal)return;
+  if(code==='KeyQ'){e.preventDefault();action('echo');return;}if(code==='Space'){action('pulse');return;}if(code==='KeyE'){action('interact');return;}if(code==='KeyM'){map();return;}if(code==='Slash'){help();return;}
+  keys.add(code);if(['KeyW','KeyA','KeyS','KeyD','ArrowUp','ArrowLeft','ArrowDown','ArrowRight'].includes(code))path=[];
+ });
+ window.addEventListener('keyup',e=>keys.delete(e.code));
+ const joystick=$('joystick');let joyId=null;
+ function stick(e){const r=joystick.getBoundingClientRect(),dx=e.clientX-r.left-r.width/2,dy=e.clientY-r.top-r.height/2,d=Math.hypot(dx,dy),max=r.width*.32,f=d>max?max/d:1;pointer={x:dx*f/max,z:dy*f/max};$('stick').style.transform=`translate(${dx*f}px,${dy*f}px)`;path=[];}
+ joystick.addEventListener('pointerdown',e=>{joyId=e.pointerId;joystick.setPointerCapture(joyId);stick(e);});joystick.addEventListener('pointermove',e=>{if(e.pointerId===joyId)stick(e);});for(const ev of ['pointerup','pointercancel','lostpointercapture'])joystick.addEventListener(ev,()=>{joyId=null;pointer={x:0,z:0};$('stick').style.transform='';});
+ function input(){
+  if(path.length){while(path.length&&Math.hypot(path[0].x-game.player.x,path[0].z-game.player.z)<.17)path.shift();if(path.length){const x=path[0].x-game.player.x,z=path[0].z-game.player.z,d=Math.hypot(x,z);return{x:x/d,z:z/d,sprint:false};}}
+  const sx=(keys.has('KeyD')||keys.has('ArrowRight')?1:0)-(keys.has('KeyA')||keys.has('ArrowLeft')?1:0)+pointer.x;
+  const sy=(keys.has('KeyS')||keys.has('ArrowDown')?1:0)-(keys.has('KeyW')||keys.has('ArrowUp')?1:0)+pointer.z;
+  // Camera-oriented movement matches the visible diagonals on keyboard and touch.
+  const r=view.camera.right,b=view.camera.back,l=Math.hypot(b[0],b[2]);return{x:r[0]*sx+b[0]/l*sy,z:r[2]*sx+b[2]/l*sy,sprint:keys.has('ShiftLeft')||keys.has('ShiftRight')};
+ }
+ let last=performance.now(),acc=0,lastUI=0,lastSave=0,lastStep=0,qaPaused=false;
+ function frame(now){
+  const dt=Math.min(.1,(now-last)/1000);last=now;
+  if(started&&!modal&&game.mode==='playing'&&!qaPaused){acc+=dt;let iterations=0;while(acc>=1/60&&iterations++<6){const before={x:game.player.x,z:game.player.z};I.step(game,input());acc-=1/60;if(game.totalTick-lastStep>22&&Math.hypot(game.player.x-before.x,game.player.z-before.z)>.001){sound.tone('step');lastStep=game.totalTick;}}}else acc=0;
+  view.render(game,{title:!started,now,reduced:preferences.reduced,target:path.at(-1)||null});
+  if(now-lastUI>80){updateUI();lastUI=now;}if(started&&now-lastSave>5000){persist();lastSave=now;}
+  if(game.ledger.length!==lastLedger){lastLedger=game.ledger.length;if(started)persist();}
+  requestAnimationFrame(frame);
+ }
+ window.addEventListener('blur',()=>{clearInput();if(started&&game.mode==='playing'&&!modal)pause();});
+ document.addEventListener('visibilitychange',()=>{clearInput();if(document.hidden&&started&&game.mode==='playing'&&!modal)pause();last=performance.now();acc=0;});
+ window.addEventListener('beforeunload',persist);
+ document.addEventListener('intime-render-lost',()=>{if(started&&game.mode==='playing')pause();$('render-error').hidden=false;$('render-error-text').textContent='The graphics context was lost. Your latest local save is retained. Reload to continue.';});
+ // Public integration seam: read-only snapshots and the normal pathfinding control.
+ I.app={diagnostics:()=>({renderer:view.cpu?'Canvas 3D compatibility':'WebGL',frames:view.frame,storageAvailable:storageOK}),snapshot:()=>JSON.parse(JSON.stringify(game)),project:(x,y,z)=>view.project(x,y,z),walkTo:goTo,exportSave:()=>I.saveGame(game)};
+ if(new URLSearchParams(location.search).get('qa')==='1'||globalThis.__INTIME_TEST__===true){
+  I.qa={freeze:()=>{qaPaused=true;},advance:(inputs,count=1)=>{if(!started||modal)throw Error('Start the game and close the menu first.');if(!Number.isInteger(count)||count<0||count>30000)throw Error('Invalid count');for(let i=0;i<count;i++)I.step(game,inputs);updateUI();},state:()=>I.app.snapshot()};
+ }
+ requestAnimationFrame(frame);
+})();
+</script>
+</body></html>

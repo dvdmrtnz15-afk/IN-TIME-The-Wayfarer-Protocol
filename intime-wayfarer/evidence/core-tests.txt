@@ -1,0 +1,218 @@
+
+> intime-wayfarer-protocol@0.1.0 test
+> node --test tests/*.test.js
+
+TAP version 13
+# Subtest: camera math exists
+ok 1 - camera math exists
+  ---
+  duration_ms: 0.91224
+  type: 'test'
+  ...
+# Subtest: projecting a ground point and unprojecting returns it
+ok 2 - projecting a ground point and unprojecting returns it
+  ---
+  duration_ms: 0.595504
+  type: 'test'
+  ...
+# Subtest: camera target projects to screen centre
+ok 3 - camera target projects to screen centre
+  ---
+  duration_ms: 0.227321
+  type: 'test'
+  ...
+# Subtest: a complete input-driven route reaches the three-memory restored-city ending
+ok 4 - a complete input-driven route reaches the three-memory restored-city ending
+  ---
+  duration_ms: 143.886093
+  type: 'test'
+  ...
+# Subtest: a full playthrough can carry the signal instead
+ok 5 - a full playthrough can carry the signal instead
+  ---
+  duration_ms: 66.770281
+  type: 'test'
+  ...
+# Subtest: restoring without memories yields the distinct light epilogue
+ok 6 - restoring without memories yields the distinct light epilogue
+  ---
+  duration_ms: 19.787751
+  type: 'test'
+  ...
+# Subtest: all twelve test seeds admit an input-driven winning route
+ok 7 - all twelve test seeds admit an input-driven winning route
+  ---
+  duration_ms: 160.159727
+  type: 'test'
+  ...
+# Subtest: landmarks survive rewind and their earlier gates stay open
+ok 8 - landmarks survive rewind and their earlier gates stay open
+  ---
+  duration_ms: 4.994749
+  type: 'test'
+  ...
+# Subtest: memory can be collected only once even after rewind
+ok 9 - memory can be collected only once even after rewind
+  ---
+  duration_ms: 5.131144
+  type: 'test'
+  ...
+# Subtest: schema validation rejects inconsistent data even with a recomputed checksum
+ok 10 - schema validation rejects inconsistent data even with a recomputed checksum
+  ---
+  duration_ms: 2.433594
+  type: 'test'
+  ...
+# Subtest: an exported ending reloads exactly
+ok 11 - an exported ending reloads exactly
+  ---
+  duration_ms: 35.542933
+  type: 'test'
+  ...
+# Subtest: recovered RNG adapter is present
+ok 12 - recovered RNG adapter is present
+  ---
+  duration_ms: 1.647664
+  type: 'test'
+  ...
+# Subtest: same seed produces the same 1000 bounded values
+ok 13 - same seed produces the same 1000 bounded values
+  ---
+  duration_ms: 3.327437
+  type: 'test'
+  ...
+# Subtest: clone resumes the exact stream without sharing state
+ok 14 - clone resumes the exact stream without sharing state
+  ---
+  duration_ms: 0.450045
+  type: 'test'
+  ...
+# Subtest: shuffle is a permutation and does not mutate its input
+ok 15 - shuffle is a permutation and does not mutate its input
+  ---
+  duration_ms: 1.544459
+  type: 'test'
+  ...
+# Subtest: different seeds do not collapse into the same deck
+ok 16 - different seeds do not collapse into the same deck
+  ---
+  duration_ms: 0.626861
+  type: 'test'
+  ...
+# Subtest: generator validates inputs and preserves uint32 state
+ok 17 - generator validates inputs and preserves uint32 state
+  ---
+  duration_ms: 2.709639
+  type: 'test'
+  ...
+# Subtest: the separately recovered Tarot PRNG degeneracy is reproduced, not imported
+ok 18 - the separately recovered Tarot PRNG degeneracy is reproduced, not imported
+  ---
+  duration_ms: 0.171056
+  type: 'test'
+  ...
+# Subtest: a playable simulation API exists
+ok 19 - a playable simulation API exists
+  ---
+  duration_ms: 1.923568
+  type: 'test'
+  ...
+# Subtest: a new game starts with time, position and three linked puzzles
+ok 20 - a new game starts with time, position and three linked puzzles
+  ---
+  duration_ms: 0.914513
+  type: 'test'
+  ...
+# Subtest: fixed steps move and equal inputs reproduce identical states
+ok 21 - fixed steps move and equal inputs reproduce identical states
+  ---
+  duration_ms: 9.682178
+  type: 'test'
+  ...
+# Subtest: pausing and dialogue do not advance the simulation clock
+ok 22 - pausing and dialogue do not advance the simulation clock
+  ---
+  duration_ms: 0.353861
+  type: 'test'
+  ...
+# Subtest: diagonal input is normalized, not faster
+ok 23 - diagonal input is normalized, not faster
+  ---
+  duration_ms: 1.723367
+  type: 'test'
+  ...
+# Subtest: rewind returns to anchor and records an echo without restoring global time
+ok 24 - rewind returns to anchor and records an echo without restoring global time
+  ---
+  duration_ms: 1.996909
+  type: 'test'
+  ...
+# Subtest: stationary recordings can hold a plate; too-short echoes are refused
+ok 25 - stationary recordings can hold a plate; too-short echoes are refused
+  ---
+  duration_ms: 1.228865
+  type: 'test'
+  ...
+# Subtest: echo count is bounded and identifiers never reuse
+ok 26 - echo count is bounded and identifiers never reuse
+  ---
+  duration_ms: 4.039776
+  type: 'test'
+  ...
+# Subtest: closed gates and walls block real movement
+ok 27 - closed gates and walls block real movement
+  ---
+  duration_ms: 2.076307
+  type: 'test'
+  ...
+# Subtest: A* rejects blocked destinations and produces a reachable exterior path
+ok 28 - A* rejects blocked destinations and produces a reachable exterior path
+  ---
+  duration_ms: 66.466596
+  type: 'test'
+  ...
+# Subtest: unavailable final choices cannot bypass the puzzles
+ok 29 - unavailable final choices cannot bypass the puzzles
+  ---
+  duration_ms: 0.281533
+  type: 'test'
+  ...
+# Subtest: save and reload preserve the complete in-progress temporal state
+ok 30 - save and reload preserve the complete in-progress temporal state
+  ---
+  duration_ms: 1.920544
+  type: 'test'
+  ...
+# Subtest: corrupt, changed, oversize and wrong-version saves are rejected
+ok 31 - corrupt, changed, oversize and wrong-version saves are rejected
+  ---
+  duration_ms: 0.944418
+  type: 'test'
+  ...
+# Subtest: event verification detects modification and removes no history on rewind
+ok 32 - event verification detects modification and removes no history on rewind
+  ---
+  duration_ms: 0.487653
+  type: 'test'
+  ...
+# Subtest: time expiration leads to a retryable failure, not an unresponsive game
+ok 33 - time expiration leads to a retryable failure, not an unresponsive game
+  ---
+  duration_ms: 0.182394
+  type: 'test'
+  ...
+# Subtest: memory identifiers cannot resolve through Object prototype properties
+ok 34 - memory identifiers cannot resolve through Object prototype properties
+  ---
+  duration_ms: 0.836547
+  type: 'test'
+  ...
+1..34
+# tests 34
+# suites 0
+# pass 34
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 528.142614

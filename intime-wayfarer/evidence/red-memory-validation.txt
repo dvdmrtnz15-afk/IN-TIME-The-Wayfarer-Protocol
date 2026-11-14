@@ -1,0 +1,120 @@
+TAP version 13
+# Subtest: a playable simulation API exists
+ok 1 - a playable simulation API exists
+  ---
+  duration_ms: 1.349315
+  type: 'test'
+  ...
+# Subtest: a new game starts with time, position and three linked puzzles
+ok 2 - a new game starts with time, position and three linked puzzles
+  ---
+  duration_ms: 0.708784
+  type: 'test'
+  ...
+# Subtest: fixed steps move and equal inputs reproduce identical states
+ok 3 - fixed steps move and equal inputs reproduce identical states
+  ---
+  duration_ms: 8.036876
+  type: 'test'
+  ...
+# Subtest: pausing and dialogue do not advance the simulation clock
+ok 4 - pausing and dialogue do not advance the simulation clock
+  ---
+  duration_ms: 0.753942
+  type: 'test'
+  ...
+# Subtest: diagonal input is normalized, not faster
+ok 5 - diagonal input is normalized, not faster
+  ---
+  duration_ms: 0.532229
+  type: 'test'
+  ...
+# Subtest: rewind returns to anchor and records an echo without restoring global time
+ok 6 - rewind returns to anchor and records an echo without restoring global time
+  ---
+  duration_ms: 1.210338
+  type: 'test'
+  ...
+# Subtest: stationary recordings can hold a plate; too-short echoes are refused
+ok 7 - stationary recordings can hold a plate; too-short echoes are refused
+  ---
+  duration_ms: 1.229826
+  type: 'test'
+  ...
+# Subtest: echo count is bounded and identifiers never reuse
+ok 8 - echo count is bounded and identifiers never reuse
+  ---
+  duration_ms: 3.704231
+  type: 'test'
+  ...
+# Subtest: closed gates and walls block real movement
+ok 9 - closed gates and walls block real movement
+  ---
+  duration_ms: 2.07145
+  type: 'test'
+  ...
+# Subtest: A* rejects blocked destinations and produces a reachable exterior path
+ok 10 - A* rejects blocked destinations and produces a reachable exterior path
+  ---
+  duration_ms: 53.778911
+  type: 'test'
+  ...
+# Subtest: unavailable final choices cannot bypass the puzzles
+ok 11 - unavailable final choices cannot bypass the puzzles
+  ---
+  duration_ms: 0.45297
+  type: 'test'
+  ...
+# Subtest: save and reload preserve the complete in-progress temporal state
+ok 12 - save and reload preserve the complete in-progress temporal state
+  ---
+  duration_ms: 2.490188
+  type: 'test'
+  ...
+# Subtest: corrupt, changed, oversize and wrong-version saves are rejected
+ok 13 - corrupt, changed, oversize and wrong-version saves are rejected
+  ---
+  duration_ms: 0.50666
+  type: 'test'
+  ...
+# Subtest: event verification detects modification and removes no history on rewind
+ok 14 - event verification detects modification and removes no history on rewind
+  ---
+  duration_ms: 0.572179
+  type: 'test'
+  ...
+# Subtest: time expiration leads to a retryable failure, not an unresponsive game
+ok 15 - time expiration leads to a retryable failure, not an unresponsive game
+  ---
+  duration_ms: 0.370305
+  type: 'test'
+  ...
+# Subtest: memory identifiers cannot resolve through Object prototype properties
+not ok 16 - memory identifiers cannot resolve through Object prototype properties
+  ---
+  duration_ms: 1.124137
+  type: 'test'
+  location: '/mnt/data/intime-wayfarer/tests/simulation.test.js:65:1'
+  failureType: 'testCodeFailure'
+  error: 'Missing expected exception: __proto__'
+  code: 'ERR_ASSERTION'
+  name: 'AssertionError'
+  operator: 'throws'
+  stack: |-
+    TestContext.<anonymous> (file:///mnt/data/intime-wayfarer/tests/simulation.test.js:68:10)
+    Test.runInAsyncScope (node:async_hooks:214:14)
+    Test.run (node:internal/test_runner/test:1047:25)
+    Test.processPendingSubtests (node:internal/test_runner/test:744:18)
+    Test.postRun (node:internal/test_runner/test:1173:19)
+    Test.run (node:internal/test_runner/test:1101:12)
+    async Test.processPendingSubtests (node:internal/test_runner/test:744:7)
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 15
+# fail 1
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 175.410192
