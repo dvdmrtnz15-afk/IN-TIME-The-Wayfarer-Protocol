@@ -1,0 +1,24 @@
+{
+  "mode": "mobile",
+  "checks": [
+    "title and renderer initialize",
+    "storage-unavailable fallback is truthful",
+    "title field guide opens",
+    "new game enters playing mode",
+    "touch joystick moves player",
+    "touch echo creates a recording",
+    "mobile map opens",
+    "portrait has no horizontal document overflow",
+    "landscape touch controls stay visible",
+    "no browser JavaScript errors",
+    "no external requests"
+  ],
+  "passed": 11,
+  "errors": [],
+  "requests": [],
+  "renderer": "Canvas 3D compatibility",
+  "navigation": "exact standalone bytes injected via set_content",
+  "localStorage": "unavailable-origin fallback tested; origin persistence not certified",
+  "playthrough": "pointer touch events and actual touch button taps",
+  "timestamp": "2026-10-17T04:17:47Z"
+}
